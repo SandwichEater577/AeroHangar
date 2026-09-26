@@ -18,6 +18,8 @@
   margin: 5px;
   font-size: 16px;
   transition: all 0.1s ease-in-out;
+  font-size: 110%;
+  font-weight: 600;
 }
 
 .main-header-button:hover {
@@ -29,14 +31,12 @@
 
 .main-header-button:active {
   transform: scale(0.95);
-  background-color: #5d7288;
-  color: #101e31;
 }
 
 .main-header-button:focus-visible,
 .active-page-button {
   outline: none;
-  border-bottom: 2px solid #f5b32c;
+  border-bottom: 3px solid #f5b32c;
 }
 
 #main-header-logo {

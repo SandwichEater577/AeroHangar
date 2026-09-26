@@ -8,6 +8,79 @@
   background-color: #101e31;
 }
 
+.login-page {
+  width: 100%;
+  height: 100%;
+}
+
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+  padding: 10px;
+  font-size: 1.2rem;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+  padding: 10px;
+}
+
+#profile-pic-at-login {
+  max-width: 60vw;
+}
+
+#login-button {
+  width: auto;
+  height: auto;
+  font-size: 150%;
+  margin: 20px;
+  padding: 15px;
+  border: 4px solid #f5b32c;
+  color: #1a304e;
+  background-color: #c08c1b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+#login-button:hover {
+  border-color: #ffd166;
+  color: #051124;
+  background-color: #ffd166;
+}
+
+#login-button:focus-visible {
+  outline: 3px solid #ffd166;
+  outline-offset: 3px;
+}
+
+#login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+  width: 100%;
+}
+
+#logo-container {
+  padding: 5px;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(252, 137, 105);
+  border: 1px solid rgb(252, 137, 105);
+  box-shadow: 0px 0px 3px 3px rgb(252, 137, 105);
+}
+
 .main-content {
   container-type: inline-size;
   display: flex;

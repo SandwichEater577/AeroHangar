@@ -22,14 +22,16 @@ div.App {
   height: 95%;
 }
 
-@media (max-width: 900px) {
-  div.App {
-    width: calc(100% - 1.5rem);
-    height: calc(100dvh - 1.5rem);
-  }
-}
-
 body {
   background-color: #051124;
   color: #f5f6fa;
+}
+
+.logged-out {
+  display: flex;
+  flex-direction: column;
+  background-color: #101e31;
+  width: 70%;
+  height: 95%;
+  padding: 1rem;
 }

@@ -9,7 +9,7 @@ export default function App() {
 
   return (
     <>
-      <div className="App">
+      <div className={!isLoggedIn ? `logged-out` : "App"}>
         {isLoggedIn ? (
           <>
             <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />

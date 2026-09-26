@@ -1,5 +1,8 @@
-import defaultUserProfilePic from "./assets/default-user-profile-pic.png";
+import AeroHangarProfile from "./assets/AeroHangarProfile.png";
+import AeroHangarLandscape from "./assets/AeroHangarLandScape.png";
 import Users from "./Users.json";
+
+export { AeroHangarProfile, AeroHangarLandscape };
 export const headerLayout = [
   {
     name: "aircraft",
@@ -22,11 +25,5 @@ export const headerLayout = [
     pic: null,
   },
 ];
-
-export const defaultUserInfo = {
-  name: "Guest User",
-  profilePic: defaultUserProfilePic,
-  friend: "Dill Doe and 9+ others",
-};
 
 export const users = [...Users];
