@@ -1,0 +1,159 @@
+/* Shared page surface — the same navy and borders as the header. */
+#main-container {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  padding: clamp(1rem, 2vw, 1.75rem);
+  overflow-y: auto;
+  background-color: #101e31;
+}
+
+.main-content {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: min(100%, 1200px);
+  margin-inline: auto;
+  color: #f5f6fa;
+  line-height: 1.5;
+}
+
+/* Profile overview */
+#first-user-layer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1.25rem;
+}
+
+.first-user-layer-content {
+  min-width: 0;
+  padding: 1.5rem;
+  border: 1px solid #2b3e54;
+  border-radius: 3px;
+}
+
+#profile-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 260px;
+}
+
+/* A definite card height makes 100% use only the padded content area. */
+#profile-image {
+  flex: 0 0 auto;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1;
+  overflow: hidden;
+  outline: 1px solid #2b3e54;
+  outline-offset: -1px;
+}
+
+#profile-image > img {
+  display: block;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.profile-summary {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+#profile-name {
+  margin: 0 0 0.4rem;
+  font-size: clamp(1.25rem, 2.5cqi, 1.6rem);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.profile-summary p {
+  color: #a4b4c7;
+  font-size: 0.9rem;
+}
+
+/* Account details */
+#account-info {
+  display: flex;
+  flex-direction: column;
+}
+
+#account-info-heading {
+  margin: 0 0 0.5rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid #2b3e54;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+#account-info-card {
+  margin: 0;
+}
+
+.account-info-card-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: 0.875rem;
+  border-bottom: 1px solid #2b3e54;
+  font-size: 0.9rem;
+}
+
+.account-info-card-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.account-info-card-row dt {
+  color: #a4b4c7;
+}
+
+.account-info-card-row dd {
+  margin: 0;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+/* Respond to the page's actual width, including the app's side margins. */
+@container (max-width: 850px) {
+  #first-user-layer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #profile-card {
+    height: 230px;
+  }
+}
+
+@container (max-width: 400px) {
+  .first-user-layer-content {
+    padding: 1rem;
+  }
+
+  #profile-card {
+    flex-direction: column;
+    height: auto;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  #profile-image {
+    height: clamp(120px, 50cqi, 180px);
+  }
+
+  .account-info-card-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+
+  .account-info-card-row dd {
+    text-align: left;
+  }
+}

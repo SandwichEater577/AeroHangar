@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+div#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+div.App {
+  display: flex;
+  flex-direction: column;
+  background-color: #101e31;
+  width: 70%;
+  height: 95%;
+}
+
+@media (max-width: 900px) {
+  div.App {
+    width: calc(100% - 1.5rem);
+    height: calc(100dvh - 1.5rem);
+  }
+}
+
+body {
+  background-color: #051124;
+  color: #f5f6fa;
+}

@@ -3,11 +3,24 @@
   margin: 0;
   padding: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  display: block;
 }
 
 div#root {
-  width: 80vw;
+  width: 100vw;
   height: 100vh;
-  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+div.App {
+  background-color: #101e31;
+  width: 70%;
+  height: 95%;
+}
+
+body {
+  background-color: #051124;
+  color: #f5f6fa;
 }
