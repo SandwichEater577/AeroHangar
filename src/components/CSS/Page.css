@@ -7,9 +7,7 @@
   flex: 1;
   min-height: 0;
   width: 100%;
-
   overflow-y: auto;
-
   background-color: #101e31;
 }
 
@@ -24,10 +22,11 @@
 .main-content {
   width: min(100%, 1200px);
   margin-inline: auto;
-
   color: #f5f6fa;
   line-height: 1.5;
 }
+
+/* Login */
 
 .login-page {
   width: 100%;
@@ -36,8 +35,8 @@
 
 .welcome-container,
 .login-container {
-  text-align: center;
   margin-inline: auto;
+  text-align: center;
 }
 
 .welcome-container {
@@ -53,12 +52,9 @@
 #logo-container {
   width: fit-content;
   margin-inline: auto;
-
   padding: 5px;
-
   background-color: rgb(252, 137, 105);
   border: 1px solid rgb(252, 137, 105);
-
   box-shadow: 0 0 3px 3px rgb(252, 137, 105);
 }
 
@@ -70,22 +66,19 @@
 #login-button {
   margin: 20px;
   padding: 15px;
-
   border: 4px solid #f5b32c;
-
   background-color: #c08c1b;
   color: #1a304e;
-
   font-size: 1.5rem;
-
   cursor: pointer;
-
-  transition: all 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 #login-button:hover {
   border-color: #ffd166;
-
   background-color: #ffd166;
   color: #051124;
 }
@@ -95,130 +88,7 @@
   outline-offset: 3px;
 }
 
-#profile-page {
-  width: 100%;
-}
-
-#user-profile-header {
-  width: 100%;
-
-  padding: 0 20px 10px;
-}
-
-#user-profile-header-top {
-  display: flex;
-  align-items: center;
-
-  gap: 2rem;
-
-  padding: 30px;
-
-  border-radius: 0 0 75px 75px;
-
-  background-color: #ffffff15;
-}
-
-#profile-pic-container {
-  flex: 1;
-
-  text-align: center;
-}
-
-#profile-pic-at-profile {
-  display: block;
-}
-#main-container,
-#main-container-no-top-padding {
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-
-  overflow-y: auto;
-
-  background-color: #101e31;
-}
-
-#main-container {
-  padding: clamp(1rem, 2vw, 1.75rem);
-}
-
-#main-container-no-top-padding {
-  padding: 0 clamp(1rem, 2vw, 1.75rem) clamp(1rem, 2vw, 1.75rem);
-}
-
-.main-content {
-  width: min(100%, 1200px);
-  margin-inline: auto;
-
-  color: #f5f6fa;
-  line-height: 1.5;
-}
-
-.login-page {
-  width: 100%;
-  height: 100%;
-}
-
-.welcome-container,
-.login-container {
-  text-align: center;
-  margin-inline: auto;
-}
-
-.welcome-container {
-  padding: 10px;
-  font-size: 1.2rem;
-}
-
-.login-container {
-  width: 100%;
-  padding: 10px;
-}
-
-#logo-container {
-  width: fit-content;
-  margin-inline: auto;
-
-  padding: 5px;
-
-  background-color: rgb(252, 137, 105);
-  border: 1px solid rgb(252, 137, 105);
-
-  box-shadow: 0 0 3px 3px rgb(252, 137, 105);
-}
-
-#profile-pic-at-login {
-  display: block;
-  max-width: 60vw;
-}
-
-#login-button {
-  margin: 20px;
-  padding: 15px;
-
-  border: 4px solid #f5b32c;
-
-  background-color: #c08c1b;
-  color: #1a304e;
-
-  font-size: 1.5rem;
-
-  cursor: pointer;
-
-  transition: all 0.15s ease;
-}
-
-#login-button:hover {
-  border-color: #ffd166;
-
-  background-color: #ffd166;
-  color: #051124;
-}
-
-#login-button:focus-visible {
-  outline: 3px solid #ffd166;
-  outline-offset: 3px;
-}
+/* Profile */
 
 #profile-page {
   width: 100%;
@@ -226,31 +96,240 @@
 
 #user-profile-header {
   width: 100%;
-
   padding: 0 20px 10px;
 }
 
 #user-profile-header-top {
   display: flex;
   align-items: center;
-
   gap: 2rem;
-
   padding: 30px;
-
   border-radius: 0 0 75px 75px;
-
   background-color: #ffffff15;
 }
 
 #profile-pic-container {
   flex: 1;
-
   text-align: center;
 }
 
 #profile-pic-at-profile {
   display: block;
+  #main-container,
+  #main-container-no-top-padding {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+
+    overflow-y: auto;
+
+    background-color: #101e31;
+  }
+
+  #main-container {
+    padding: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  #main-container-no-top-padding {
+    padding: 0 clamp(1rem, 2vw, 1.75rem) clamp(1rem, 2vw, 1.75rem);
+  }
+
+  .main-content {
+    width: min(100%, 1200px);
+    margin-inline: auto;
+
+    color: #f5f6fa;
+    line-height: 1.5;
+  }
+
+  .login-page {
+    width: 100%;
+    height: 100%;
+  }
+
+  .welcome-container,
+  .login-container {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .welcome-container {
+    padding: 10px;
+    font-size: 1.2rem;
+  }
+
+  .login-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  #logo-container {
+    width: fit-content;
+    margin-inline: auto;
+
+    padding: 5px;
+
+    background-color: rgb(252, 137, 105);
+    border: 1px solid rgb(252, 137, 105);
+
+    box-shadow: 0 0 3px 3px rgb(252, 137, 105);
+  }
+
+  #profile-pic-at-login {
+    display: block;
+    max-width: 60vw;
+  }
+
+  #login-button {
+    margin: 20px;
+    padding: 15px;
+
+    border: 4px solid #f5b32c;
+
+    background-color: #c08c1b;
+    color: #1a304e;
+
+    font-size: 1.5rem;
+
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+  }
+
+  #login-button:hover {
+    border-color: #ffd166;
+
+    background-color: #ffd166;
+    color: #051124;
+  }
+
+  #login-button:focus-visible {
+    outline: 3px solid #ffd166;
+    outline-offset: 3px;
+  }
+
+  #profile-page {
+    width: 100%;
+  }
+
+  #user-profile-header {
+    width: 100%;
+
+    padding: 0 20px 10px;
+  }
+
+  #user-profile-header-top {
+    display: flex;
+    align-items: center;
+
+    gap: 2rem;
+
+    padding: 30px;
+
+    border-radius: 0 0 75px 75px;
+
+    background-color: #ffffff15;
+  }
+
+  #profile-pic-container {
+    flex: 1;
+
+    text-align: center;
+  }
+
+  #profile-pic-at-profile {
+    display: block;
+
+    width: min(20vw, 220px);
+    aspect-ratio: 1;
+
+    margin-inline: auto;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+  }
+
+  #profile-actions-container {
+    flex: 2;
+  }
+
+  #profile-user-name {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  #profile-user-friends {
+    display: flex;
+    align-items: center;
+
+    margin-top: 0.4rem;
+
+    color: #f5f6fa;
+
+    font-size: 1.2rem;
+  }
+
+  #friend-pic-at-profile {
+    width: 40px;
+    height: 40px;
+
+    margin-right: 0.5rem;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+  }
+
+  #user-profile-main {
+    width: 100%;
+
+    padding: 10px 20px 0;
+  }
+
+  #user-profile-main-correcter {
+    padding-inline: 30px;
+
+    border-radius: 75px 75px 0 0;
+
+    background-color: #ffffff15;
+  }
+
+  #user-profile-main-header {
+    display: flex;
+
+    gap: 1rem;
+
+    width: 100%;
+    height: 5vh;
+
+    padding: 10px 20px 0;
+
+    border-bottom: 1px solid #f5f6fa15;
+  }
+
+  .user-profile-main-header-button {
+    flex: 1;
+
+    height: 100%;
+
+    border: none;
+    border-bottom: 2px solid transparent;
+
+    background-color: transparent;
+    color: #f5f6fa;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 1s;
+  }
+
+  .user-profile-main-header-button:hover {
+    color: #ffd166;
+    border-bottom-color: #ffd166;
+  }
 
   width: min(20vw, 220px);
   aspect-ratio: 1;
@@ -274,28 +353,23 @@
 #profile-user-friends {
   display: flex;
   align-items: center;
-
   margin-top: 0.4rem;
-
   color: #f5f6fa;
-
   font-size: 1.2rem;
 }
 
 #friend-pic-at-profile {
   width: 40px;
   height: 40px;
-
   margin-right: 0.5rem;
-
   border-radius: 50%;
-
   object-fit: cover;
 }
 
+/* Profile sub-pages */
+
 #user-profile-main {
   width: 100%;
-
   padding: 10px 20px 0;
 }
 
@@ -303,130 +377,38 @@
   padding-inline: 30px;
 
   border-radius: 75px 75px 0 0;
-
   background-color: #ffffff15;
 }
 
 #user-profile-main-header {
   display: flex;
-
   gap: 1rem;
-
   width: 100%;
   height: 5vh;
-
   padding: 10px 20px 0;
-
   border-bottom: 1px solid #f5f6fa15;
 }
 
 .user-profile-main-header-button {
   flex: 1;
-
   height: 100%;
-
   border: none;
   border-bottom: 2px solid transparent;
-
-  background-color: transparent;
+  background: transparent;
   color: #f5f6fa;
-
   font-size: 1.2rem;
   font-weight: bold;
-
   cursor: pointer;
-  transition: 0.2s;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
-.user-profile-main-header-button:hover {
-  font-size: calc((1.2rem / 100) * 110);
+.user-profile-main-header-button:hover,
+.active-profile-page-button {
   color: #ffd166;
-  border-bottom-color: #ffd166;
 }
 
-.user-profile-main-header-button:focus {
-  outline: none;
-  offset: 0;
-  border-bottom: 2px solid #ffd166;
-}
-
-#profile-actions-container {
-  flex: 2;
-}
-
-#profile-user-name {
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-#profile-user-friends {
-  display: flex;
-  align-items: center;
-
-  margin-top: 0.4rem;
-
-  color: #f5f6fa;
-
-  font-size: 1.2rem;
-}
-
-#friend-pic-at-profile {
-  width: 40px;
-  height: 40px;
-
-  margin-right: 0.5rem;
-
-  border-radius: 50%;
-
-  object-fit: cover;
-}
-
-#user-profile-main {
-  width: 100%;
-
-  padding: 10px 20px 0;
-}
-
-#user-profile-main-correcter {
-  padding-inline: 30px;
-  padding-bottom: 30px;
-
-  border-radius: 75px 75px 0 0;
-
-  background-color: #ffffff15;
-}
-
-#user-profile-main-header {
-  display: flex;
-
-  gap: 1rem;
-
-  width: 100%;
-  height: 5vh;
-
-  padding: 10px 20px 0;
-
-  border-bottom: 1px solid #f5f6fa15;
-}
-
-.user-profile-main-header-button {
-  flex: 1;
-
-  height: 100%;
-
-  border: none;
-  border-bottom: 2px solid transparent;
-
-  background-color: transparent;
-  color: #f5f6fa;
-
-  font-size: 1.2rem;
-  font-weight: bold;
-
-  cursor: pointer;
-}
-
-.user-profile-main-header-button:hover {
-  color: #ffd166;
+.active-profile-page-button {
   border-bottom-color: #ffd166;
 }
