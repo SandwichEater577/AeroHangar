@@ -115,6 +115,14 @@
 
 #profile-pic-at-profile {
   display: block;
+  width: min(20vw, 220px);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Remove the duplicated block that was accidentally nested in this rule.
   #main-container,
   #main-container-no-top-padding {
     flex: 1;
@@ -340,6 +348,7 @@
 
   object-fit: cover;
 }
+*/
 
 #profile-actions-container {
   flex: 2;
