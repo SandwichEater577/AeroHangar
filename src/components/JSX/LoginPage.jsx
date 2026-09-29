@@ -1,4 +1,7 @@
-import { AeroHangarProfile, AeroHangarLandscape } from "../data/LayoutData.js";
+import {
+  AeroHangarProfile,
+  AeroHangarLandscape,
+} from "../../data/LayoutData.js";
 
 export default function LoginPage({ setIsLoggedIn }) {
   const handleLogin = () => {

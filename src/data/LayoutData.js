@@ -1,8 +1,9 @@
 import AeroHangarProfile from "./assets/AeroHangarProfile.png";
 import AeroHangarLandscape from "./assets/AeroHangarLandScape.png";
-import Users from "./Users.json";
+import IgnacyPFP from "./assets/IgnacyPFP.png";
+import KubaPFP from "./assets/KubaPFP.png";
 
-export { AeroHangarProfile, AeroHangarLandscape };
+export { AeroHangarProfile, AeroHangarLandscape, IgnacyPFP, KubaPFP };
 export const headerLayout = [
   {
     name: "aircraft",
@@ -26,4 +27,39 @@ export const headerLayout = [
   },
 ];
 
-export const users = [...Users];
+export const user = {
+  name: "AeroHangar",
+  username: "aero-hangar",
+  email: "user@aerohangar.com",
+  password: "1234",
+  pfp: AeroHangarProfile,
+  friends: [
+    {
+      name: "Ignacy Chacinski",
+      username: "ignacy-chacinski",
+      email: "ignacy.chacinski@aerohangar.com",
+      pfp: IgnacyPFP,
+    },
+    {
+      name: "Kuba Ropiak",
+      username: "kuba-ropiak",
+      email: "kuba.ropiak@aerohangar.com",
+      pfp: KubaPFP,
+    },
+  ],
+};
+
+export const profile_main_header = [
+  {
+    text: "All",
+    name: "all",
+  },
+  {
+    text: "Activity",
+    name: "activity",
+  },
+  {
+    text: "Aircraft",
+    name: "aircraft",
+  },
+];
