@@ -4,24 +4,28 @@ import { useState } from "react";
 import LoginPage from "./components/JSX/LoginPage.jsx";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState("profile");
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [currentActivePage, setCurrentActivePage] = useState("profile");
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
   const [currentProfilePage, setCurrentProfilePage] = useState("1");
 
   return (
     <>
-      <div className={!isLoggedIn ? `logged-out ` : `App `}>
-        {isLoggedIn ? (
+      <div className={!isUserLoggedIn ? `logged-out ` : `App `}>
+        {isUserLoggedIn ? (
           <>
-            <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <Header
+              currentPage={currentActivePage}
+              setCurrentPage={setCurrentActivePage}
+              setCurrentProfilePage={setCurrentProfilePage}
+            />
             <Main
-              currentPage={currentPage}
+              currentPage={currentActivePage}
               currentProfilePage={currentProfilePage}
               setCurrentProfilePage={setCurrentProfilePage}
             />
           </>
         ) : (
-          <LoginPage setIsLoggedIn={setIsLoggedIn} />
+          <LoginPage setIsLoggedIn={setIsUserLoggedIn} />
         )}
       </div>
     </>

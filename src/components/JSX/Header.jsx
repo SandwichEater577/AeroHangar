@@ -1,7 +1,11 @@
 import "../CSS/Header.css";
 import { headerLayout } from "../../data/LayoutData.js";
 import HeaderButton from "./HeaderButton.jsx";
-export default function Header({ currentPage, setCurrentPage }) {
+export default function Header({
+  currentPage,
+  setCurrentPage,
+  setCurrentProfilePage,
+}) {
   return (
     <>
       <header id="main-header">
@@ -19,6 +23,7 @@ export default function Header({ currentPage, setCurrentPage }) {
                 element={element}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
+                setCurrentProfilePage={setCurrentProfilePage}
               />
             );
           })}

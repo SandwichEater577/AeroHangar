@@ -53,13 +53,22 @@ export const profile_main_header = [
   {
     text: "All",
     name: "all",
+    id: 1,
   },
   {
     text: "Activity",
     name: "activity",
+    id: 2,
   },
   {
     text: "Aircraft",
     name: "aircraft",
+    id: 3,
   },
 ];
+
+export const profile_main_page_activity = [];
+
+export const profile_main_page_aircraft = [];
+
+export const profile_main_page_all = [];

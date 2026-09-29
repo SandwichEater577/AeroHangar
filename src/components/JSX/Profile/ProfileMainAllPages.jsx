@@ -11,8 +11,6 @@ export default function ProfileMainAllPages({ currentProfilePage }) {
     case "3":
       profilePage = <div>Profile Page 3</div>;
       break;
-    default:
-      profilePage = <div>Default Profile Page</div>;
   }
 
   return <>{profilePage}</>;
