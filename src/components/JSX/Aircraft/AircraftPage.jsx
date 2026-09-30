@@ -5,6 +5,7 @@ import {
 } from "../../../data/LayoutData.js";
 
 export default function AircraftPage({
+  setCurrentOpenAircraftHero,
   currentAircraftPage,
   setCurrentAircraftPage,
 }) {
@@ -24,6 +25,7 @@ export default function AircraftPage({
               id={`aircraft-card-${jet.id}`}
               key={jet.id}
               style={{ backgroundImage: `url(${jet.png})` }}
+              onClick={() => setCurrentOpenAircraftHero(jet.id)}
             >
               <div className="jet-name-div">
                 <div className="jet-name">{jet.name}</div>

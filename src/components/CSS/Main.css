@@ -31,3 +31,8 @@
   display: flex;
   flex-direction: column;
 }
+
+.should-blur {
+  filter: blur(5px);
+  pointer-events: none;
+}

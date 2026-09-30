@@ -8,10 +8,11 @@ import "./components/CSS/Profile.css";
 import "./components/CSS/Aircraft.css";
 
 export default function App() {
+  const [currentOpenAircraftHero, setCurrentOpenAircraftHero] = useState(0);
   const [currentActivePage, setCurrentActivePage] = useState("aircraft");
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
-  const [currentProfilePage, setCurrentProfilePage] = useState("1");
   const [currentAircraftPage, setCurrentAircraftPage] = useState("1");
+  const [currentProfilePage, setCurrentProfilePage] = useState("1");
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
 
   return (
     <>
@@ -24,11 +25,13 @@ export default function App() {
               setCurrentProfilePage={setCurrentProfilePage}
             />
             <Main
-              currentAircraftPage={currentAircraftPage}
-              setCurrentAircraftPage={setCurrentAircraftPage}
               currentPage={currentActivePage}
               currentProfilePage={currentProfilePage}
+              currentAircraftPage={currentAircraftPage}
               setCurrentProfilePage={setCurrentProfilePage}
+              setCurrentAircraftPage={setCurrentAircraftPage}
+              currentOpenAircraftHero={currentOpenAircraftHero}
+              setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}
             />
           </>
         ) : (

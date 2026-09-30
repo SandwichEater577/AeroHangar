@@ -12,7 +12,9 @@
   height: 100%;
   min-height: 0;
 
-  border: 2px solid #ffffff15;
+  outline: none;
+  border: 2px solid #2b3e54;
+
   background-color: transparent;
 
   background-size: cover;
@@ -22,37 +24,268 @@
 #aircraft-page-buttons-container {
   display: flex;
   justify-content: space-between;
+
   margin-top: 1rem;
 }
 
 .aircraft-page-button {
   padding: 0.5rem 1rem;
-  border: none;
+
+  border: 2px solid transparent;
   border-radius: 4px;
-  background-color: #007bff;
-  color: white;
+
+  background-color: #1a304e;
+  color: #f5f6fa;
+
   cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.aircraft-page-button:hover {
+  background-color: #f5b32c;
+  color: #101e31;
 }
 
 .jet-name-div {
-  padding: 5px;
   display: flex;
   justify-content: space-between;
+
+  height: 30%;
+  padding: 5px;
+
   background: linear-gradient(
     to bottom,
-    #00000085 0%,
-    #00000065 50%,
-    #00000000 100%
+    #051124e8 0%,
+    #051124b5 45%,
+    #05112455 75%,
+    #05112400 100%
   );
-  height: 30%;
 }
 
 .jet-name {
+  color: #f5f6fa;
+
   font-weight: bold;
   font-size: 1.7rem;
+
+  text-shadow: 0 2px 4px #051124;
+
+  text-align: top;
 }
 
 .jet-nickname {
+  color: #e4d8c5;
+
   font-style: italic;
   font-size: 1rem;
+
+  text-shadow: 0 2px 4px #051124;
+}
+
+.aircraft-page-button-container {
+  background-color: #051124d0;
+}
+
+/* Aircraft overlay */
+
+#overlay-aircraft-hero-container {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 10;
+
+  background-color: #051124b5;
+}
+
+#overlay-aircraft-hero {
+  position: relative;
+
+  width: 60%;
+  height: 60%;
+
+  overflow: hidden;
+
+  border: 3px solid #2b3e54;
+  background-color: #101e31;
+
+  color: #f5f6fa;
+}
+
+#overlay-aircraft-header {
+  position: absolute;
+
+  width: 100%;
+  height: auto;
+
+  padding: 10px;
+
+  display: flex;
+  justify-content: space-between;
+
+  z-index: 13;
+
+  background: linear-gradient(
+    to bottom,
+    #051124ee 0%,
+    #051124aa 45%,
+    #05112440 75%,
+    #05112400 100%
+  );
+}
+
+#overlay-aircraft-hero-close {
+  background: none;
+  border: none;
+
+  color: #f5f6fa;
+
+  font-size: 2rem;
+
+  cursor: pointer;
+
+  transition: color 0.15s ease;
+}
+
+#overlay-aircraft-hero-close:hover {
+  color: #f5b32c;
+}
+
+#overlay-aircraft-hero-title {
+  display: flex;
+  gap: 10%;
+
+  white-space: nowrap;
+}
+
+#overlay-aircraft-hero-name {
+  color: #f5f6fa;
+
+  font-weight: bolder;
+  font-size: 1.7rem;
+
+  text-shadow: 0 2px 5px #051124;
+
+  text-align: center;
+}
+
+#overlay-aircraft-hero-nickname {
+  color: #e4d8c5;
+
+  font-size: 1rem;
+  font-style: italic;
+
+  text-shadow: 0 2px 5px #051124;
+
+  text-align: top;
+}
+
+#overlay-aircraft-main {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  z-index: 12;
+}
+
+.overlay-aircraft-info-container {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+#overlay-aircraft-main-info-name,
+#overlay-aircraft-main-info-nickname,
+#overlay-aircraft-main-info-birth-date,
+#overlay-aircraft-main-info-status,
+#overlay-aircraft-main-info-manufacturer,
+#overlay-aircraft-main-info-country,
+#overlay-aircraft-main-info-role,
+#overlay-aircraft-main-info-engine,
+#overlay-aircraft-main-info-engines,
+#overlay-aircraft-main-info-max-speed,
+#overlay-aircraft-main-info-stealth {
+  margin-left: 0.25rem;
+
+  color: #f5f6fa;
+
+  font-size: 1.2rem;
+  font-weight: 600;
+
+  text-shadow: 0 2px 4px #051124;
+}
+
+.overlay-aircraft-info-label {
+  margin-left: 0.25rem;
+
+  color: #a4b4c7;
+
+  font-weight: 400;
+}
+
+#overlay-aircraft-card-img {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 11;
+
+  img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+  }
+}
+
+#overlay-aircraft-main-info {
+  position: absolute;
+
+  width: auto;
+  height: 100%;
+
+  padding-right: 4rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  background: linear-gradient(
+    to right,
+    #051124f2 0%,
+    #051124d5 45%,
+    #05112480 70%,
+    #05112420 90%,
+    #05112400 100%
+  );
+
+  > div {
+    height: 27%;
+  }
 }
