@@ -1,0 +1,33 @@
+#main-container,
+#main-container-no-top-padding {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+
+  overflow-y: auto;
+
+  background-color: #101e31;
+}
+
+#main-container {
+  padding: clamp(1rem, 2vw, 1.75rem);
+}
+
+#main-container-no-top-padding {
+  padding: 0 clamp(1rem, 2vw, 1.75rem) clamp(1rem, 2vw, 1.75rem);
+}
+
+.main-content {
+  width: min(100%, 1200px);
+
+  margin-inline: auto;
+
+  color: #f5f6fa;
+  line-height: 1.5;
+}
+
+#main-aircraft {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}

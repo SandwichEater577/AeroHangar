@@ -3,9 +3,10 @@ import AboutPage from "./About/AboutPage.jsx";
 import AddAircraftPage from "./AddAircraft/AddAircraftPage.jsx";
 import ProfilePage from "./Profile/ProfilePage.jsx";
 import { Fragment } from "react";
-import "../CSS/Page.css";
 
 export default function Main({
+  currentAircraftPage,
+  setCurrentAircraftPage,
   currentPage,
   currentProfilePage,
   setCurrentProfilePage,
@@ -13,7 +14,13 @@ export default function Main({
   return (
     <>
       {[
-        ["aircraft", <AircraftPage />],
+        [
+          "aircraft",
+          <AircraftPage
+            currentAircraftPage={currentAircraftPage}
+            setCurrentAircraftPage={setCurrentAircraftPage}
+          />,
+        ],
         ["about", <AboutPage />],
         ["add-aircraft", <AddAircraftPage />],
         [

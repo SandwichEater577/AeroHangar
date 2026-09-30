@@ -1,6 +1,5 @@
 import { profile_main_header } from "../../../data/LayoutData.js";
 import ProfileMainAllPages from "./ProfileMainAllPages.jsx";
-import { useState } from "react";
 
 export default function ProfileUserPages({
   currentProfilePage,
@@ -26,6 +25,7 @@ export default function ProfileUserPages({
             </button>
           ))}
         </div>
+
         <div id="user-profile-main-page-container">
           <ProfileMainAllPages currentProfilePage={currentProfilePage} />
         </div>

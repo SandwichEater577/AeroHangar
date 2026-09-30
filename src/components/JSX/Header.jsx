@@ -1,4 +1,3 @@
-import "../CSS/Header.css";
 import { headerLayout } from "../../data/LayoutData.js";
 import HeaderButton from "./HeaderButton.jsx";
 export default function Header({
