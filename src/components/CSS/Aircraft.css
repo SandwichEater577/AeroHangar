@@ -23,9 +23,12 @@
 
 #aircraft-page-buttons-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+
+  align-items: center;
 
   margin-top: 1rem;
+  gap: 10px;
 }
 
 .aircraft-page-button {
@@ -36,6 +39,9 @@
 
   background-color: #1a304e;
   color: #f5f6fa;
+
+  font-weight: bold;
+  font-size: 1rem;
 
   cursor: pointer;
 
@@ -224,7 +230,7 @@
 #overlay-aircraft-main-info-engines,
 #overlay-aircraft-main-info-max-speed,
 #overlay-aircraft-main-info-stealth {
-  margin-left: 0.25rem;
+  margin-left: 0.5rem;
 
   color: #f5f6fa;
 

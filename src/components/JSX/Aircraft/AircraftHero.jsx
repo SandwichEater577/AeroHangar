@@ -73,7 +73,9 @@ export default function AircraftHero({ setCurrentOpenAircraftHero, ...props }) {
                     {"No. Engines: " + props.array.engines}
                   </div>
                   <div id="overlay-aircraft-main-info-max-speed">
-                    {"Max Speed: " + props.array.maxSpeed}
+                    {"Max Speed: " +
+                      props.array.maxSpeed +
+                      `km/h [${(props.array.maxSpeed * 0.000816).toFixed(2)} mach]`}
                   </div>
                   <div id="overlay-aircraft-main-info-stealth">
                     {"Stealth: " + props.array.stealth}

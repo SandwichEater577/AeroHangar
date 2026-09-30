@@ -28,15 +28,6 @@ body {
   color: #f5f6fa;
 }
 
-.logged-out {
-  display: flex;
-  flex-direction: column;
-  background-color: #101e31;
-  width: 70%;
-  height: 95%;
-  padding: 1rem;
-}
-
 /* UNDER THIS COMMENTS IS LINES OF CSS WRITTEN BY AI */
 
 /* Firefox */

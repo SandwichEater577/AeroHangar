@@ -31,7 +31,11 @@ export default function AircraftPage({
                 <div className="jet-name">{jet.name}</div>
                 <div className="jet-nickname">{`Aka: "${jet.nickname}"`}</div>
               </div>
-              <div></div>
+              <div>
+                <div id="overlay-aircraft-likes-container">
+                  <div id="overlay-aircraft-likes"></div>
+                </div>
+              </div>
             </div>
           ))}
       </div>

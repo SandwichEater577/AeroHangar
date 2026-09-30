@@ -33,14 +33,14 @@ import sU35PNG from "./assets/su35.png";
 import sU57PNG from "./assets/su57.png";
 import yAk141PNG from "./assets/yak141.png";
 import eurofighterTyphoonPNG from "./assets/eut.png";
-import dassaultRafalePNG from "./assets/dr.png";
+import dassaultRafalePNG from "./assets/dr.png"; // My fav one
 import mirage2000PNG from "./assets/m2000.png";
 import mirageF1PNG from "./assets/mf1.png";
 import jAS39GripenPNG from "./assets/jas39.png";
 import saab35DrakenPNG from "./assets/saab35.png";
-import saab37ViggenPNG from "./assets/saab37.png"; // GOOD
-import panaviaTornadoPNG from "./assets/tornado.png"; // GOOD
-import harrierIIPNG from "./assets/harrier.png"; // GOOD
+import saab37ViggenPNG from "./assets/saab37.png";
+import panaviaTornadoPNG from "./assets/tornado.png";
+import harrierIIPNG from "./assets/harrier.png";
 import j10PNG from "./assets/j10.png";
 import j11PNG from "./assets/j11.png";
 import j20PNG from "./assets/j20.png";
@@ -52,8 +52,9 @@ import kAI_FA50PNG from "./assets/kf50.png";
 import iAI_KfirPNG from "./assets/kfir.png";
 import englishElectricLightningPNG from "./assets/eel.png";
 import avroVulcanPNG from "./assets/av.png";
+import heartSVG from "./svgs/heart.svg";
 
-export { AeroHangarProfile, AeroHangarLandscape, IgnacyPFP, KubaPFP };
+export { AeroHangarProfile, AeroHangarLandscape, IgnacyPFP, KubaPFP, heartSVG };
 export const headerLayout = [
   {
     name: "aircraft",
@@ -85,12 +86,14 @@ export const user = {
   pfp: AeroHangarProfile,
   friends: [
     {
+      uuid: "0x01",
       name: "Ignacy Chacinski",
       username: "ignacy-chacinski",
       email: "ignacy.chacinski@aerohangar.com",
       pfp: IgnacyPFP,
     },
     {
+      uuid: "0x02",
       name: "Kuba Ropiak",
       username: "kuba-ropiak",
       email: "kuba.ropiak@aerohangar.com",
@@ -138,6 +141,16 @@ export const jets = [
     maxSpeed: 2120,
     stealth: false,
     png: f16PNG,
+    likes: [
+      {
+        liked: true,
+        uuid: "0x01",
+      },
+      {
+        liked: true,
+        uuid: "0x02",
+      },
+    ],
   },
   {
     id: 2,
@@ -153,6 +166,7 @@ export const jets = [
     maxSpeed: 2660,
     stealth: false,
     png: f15PNG,
+    likes: [{ liked: false, uuid: "0x01" }],
   },
   {
     id: 3,
@@ -168,6 +182,7 @@ export const jets = [
     maxSpeed: 2485,
     stealth: false,
     png: f14PNG,
+    likes: [{ liked: true, uuid: "0x02" }],
   },
   {
     id: 4,
@@ -183,6 +198,7 @@ export const jets = [
     maxSpeed: 1915,
     stealth: false,
     png: f18PNG,
+    likes: [],
   },
   {
     id: 5,
@@ -198,6 +214,10 @@ export const jets = [
     maxSpeed: 1915,
     stealth: false,
     png: f18ePNG,
+    likes: [
+      { liked: true, uuid: "0x01" },
+      { liked: true, uuid: "0x02" },
+    ],
   },
   {
     id: 6,
@@ -213,6 +233,7 @@ export const jets = [
     maxSpeed: 2410,
     stealth: true,
     png: f22PNG,
+    likes: [{ liked: false, uuid: "0x02" }],
   },
   {
     id: 7,
@@ -228,6 +249,7 @@ export const jets = [
     maxSpeed: 1930,
     stealth: true,
     png: f35PNG,
+    likes: [{ liked: true, uuid: "0x01" }],
   },
   {
     id: 8,
@@ -243,6 +265,7 @@ export const jets = [
     maxSpeed: 990,
     stealth: true,
     png: f117PNG,
+    likes: [],
   },
   {
     id: 9,
@@ -258,6 +281,7 @@ export const jets = [
     maxSpeed: 2655,
     stealth: false,
     png: f111PNG,
+    likes: [{ liked: true, uuid: "0x02" }],
   },
   {
     id: 10,
@@ -273,6 +297,10 @@ export const jets = [
     maxSpeed: 2135,
     stealth: false,
     png: f104PNG,
+    likes: [
+      { liked: true, uuid: "0x01" },
+      { liked: false, uuid: "0x02" },
+    ],
   },
   {
     id: 11,
@@ -288,6 +316,7 @@ export const jets = [
     maxSpeed: 2370,
     stealth: false,
     png: f4PNG,
+    likes: [{ liked: false, uuid: "0x01" }],
   },
   {
     id: 12,
@@ -303,6 +332,7 @@ export const jets = [
     maxSpeed: 1700,
     stealth: false,
     png: f5PNG,
+    likes: [],
   },
   {
     id: 13,
@@ -318,6 +348,7 @@ export const jets = [
     maxSpeed: 706,
     stealth: false,
     png: a10PNG,
+    likes: [{ liked: true, uuid: "0x02" }],
   },
   {
     id: 14,
@@ -333,6 +364,7 @@ export const jets = [
     maxSpeed: 1010,
     stealth: true,
     png: b2PNG,
+    likes: [{ liked: true, uuid: "0x01" }],
   },
   {
     id: 15,
@@ -348,6 +380,10 @@ export const jets = [
     maxSpeed: 1335,
     stealth: false,
     png: b1bPNG,
+    likes: [
+      { liked: true, uuid: "0x01" },
+      { liked: true, uuid: "0x02" },
+    ],
   },
   {
     id: 16,
@@ -363,6 +399,7 @@ export const jets = [
     maxSpeed: 1045,
     stealth: false,
     png: b52PNG,
+    likes: [],
   },
   {
     id: 17,
@@ -378,6 +415,7 @@ export const jets = [
     maxSpeed: 3660,
     stealth: false,
     png: yF12PNG,
+    likes: [{ liked: false, uuid: "0x01" }],
   },
   {
     id: 18,
@@ -393,6 +431,7 @@ export const jets = [
     maxSpeed: 3540,
     stealth: false,
     png: sR71PNG,
+    likes: [{ liked: true, uuid: "0x02" }],
   },
   {
     id: 19,
@@ -408,6 +447,7 @@ export const jets = [
     maxSpeed: 2175,
     stealth: false,
     png: mIg21PNG,
+    likes: [{ liked: true, uuid: "0x01" }],
   },
   {
     id: 20,
@@ -423,6 +463,7 @@ export const jets = [
     maxSpeed: 2500,
     stealth: false,
     png: mIg23PNG,
+    likes: [],
   },
   {
     id: 21,
@@ -438,6 +479,10 @@ export const jets = [
     maxSpeed: 3000,
     stealth: false,
     png: mIg25PNG,
+    likes: [
+      { liked: true, uuid: "0x01" },
+      { liked: true, uuid: "0x02" },
+    ],
   },
   {
     id: 22,
@@ -453,6 +498,7 @@ export const jets = [
     maxSpeed: 2400,
     stealth: false,
     png: mIg29PNG,
+    likes: [{ liked: false, uuid: "0x02" }],
   },
   {
     id: 23,
@@ -468,6 +514,7 @@ export const jets = [
     maxSpeed: 3000,
     stealth: false,
     png: mIg31PNG,
+    likes: [{ liked: true, uuid: "0x01" }],
   },
   {
     id: 24,
@@ -483,6 +530,7 @@ export const jets = [
     maxSpeed: 2500,
     stealth: false,
     png: sU27PNG,
+    likes: [],
   },
   {
     id: 25,
@@ -498,6 +546,7 @@ export const jets = [
     maxSpeed: 2120,
     stealth: false,
     png: sU30PNG,
+    likes: [{ liked: true, uuid: "0x02" }],
   },
   {
     id: 26,
@@ -513,6 +562,10 @@ export const jets = [
     maxSpeed: 2300,
     stealth: false,
     png: sU33PNG,
+    likes: [
+      { liked: true, uuid: "0x01" },
+      { liked: false, uuid: "0x02" },
+    ],
   },
   {
     id: 27,
@@ -528,6 +581,7 @@ export const jets = [
     maxSpeed: 1900,
     stealth: false,
     png: sU34PNG,
+    likes: [{ liked: false, uuid: "0x01" }],
   },
   {
     id: 28,
@@ -543,6 +597,7 @@ export const jets = [
     maxSpeed: 2400,
     stealth: false,
     png: sU35PNG,
+    likes: [],
   },
   {
     id: 29,
@@ -558,6 +613,7 @@ export const jets = [
     maxSpeed: 2130,
     stealth: true,
     png: sU57PNG,
+    likes: [{ liked: true, uuid: "0x02" }],
   },
   {
     id: 30,
@@ -573,6 +629,7 @@ export const jets = [
     maxSpeed: 1800,
     stealth: false,
     png: yAk141PNG,
+    likes: [{ liked: true, uuid: "0x01" }],
   },
   {
     id: 31,
@@ -588,6 +645,10 @@ export const jets = [
     maxSpeed: 2495,
     stealth: false,
     png: eurofighterTyphoonPNG,
+    likes: [
+      { liked: true, uuid: "0x01" },
+      { liked: true, uuid: "0x02" },
+    ],
   },
   {
     id: 32,
@@ -603,6 +664,7 @@ export const jets = [
     maxSpeed: 1910,
     stealth: false,
     png: dassaultRafalePNG,
+    likes: [],
   },
   {
     id: 33,
@@ -618,6 +680,7 @@ export const jets = [
     maxSpeed: 2335,
     stealth: false,
     png: mirage2000PNG,
+    likes: [{ liked: false, uuid: "0x01" }],
   },
   {
     id: 34,
@@ -633,6 +696,7 @@ export const jets = [
     maxSpeed: 2335,
     stealth: false,
     png: mirageF1PNG,
+    likes: [{ liked: true, uuid: "0x02" }],
   },
   {
     id: 35,
@@ -648,6 +712,7 @@ export const jets = [
     maxSpeed: 2470,
     stealth: false,
     png: jAS39GripenPNG,
+    likes: [{ liked: true, uuid: "0x01" }],
   },
   {
     id: 36,
@@ -663,6 +728,7 @@ export const jets = [
     maxSpeed: 2125,
     stealth: false,
     png: saab35DrakenPNG,
+    likes: [],
   },
   {
     id: 37,
@@ -678,6 +744,10 @@ export const jets = [
     maxSpeed: 2230,
     stealth: false,
     png: saab37ViggenPNG,
+    likes: [
+      { liked: true, uuid: "0x01" },
+      { liked: false, uuid: "0x02" },
+    ],
   },
   {
     id: 38,
@@ -693,6 +763,7 @@ export const jets = [
     maxSpeed: 2400,
     stealth: false,
     png: panaviaTornadoPNG,
+    likes: [{ liked: false, uuid: "0x02" }],
   },
   {
     id: 39,
@@ -708,6 +779,7 @@ export const jets = [
     maxSpeed: 1085,
     stealth: false,
     png: harrierIIPNG,
+    likes: [{ liked: true, uuid: "0x01" }],
   },
   {
     id: 40,
@@ -723,6 +795,7 @@ export const jets = [
     maxSpeed: 2200,
     stealth: false,
     png: j10PNG,
+    likes: [],
   },
   {
     id: 41,
@@ -738,6 +811,7 @@ export const jets = [
     maxSpeed: 2500,
     stealth: false,
     png: j11PNG,
+    likes: [{ liked: true, uuid: "0x02" }],
   },
   {
     id: 42,
@@ -753,6 +827,10 @@ export const jets = [
     maxSpeed: 2100,
     stealth: true,
     png: j20PNG,
+    likes: [
+      { liked: true, uuid: "0x01" },
+      { liked: true, uuid: "0x02" },
+    ],
   },
   {
     id: 43,
@@ -768,6 +846,7 @@ export const jets = [
     maxSpeed: 2200,
     stealth: true,
     png: j35PNG,
+    likes: [{ liked: false, uuid: "0x01" }],
   },
   {
     id: 44,
@@ -783,6 +862,7 @@ export const jets = [
     maxSpeed: 1910,
     stealth: false,
     png: jF17PNG,
+    likes: [{ liked: true, uuid: "0x02" }],
   },
   {
     id: 45,
@@ -798,6 +878,7 @@ export const jets = [
     maxSpeed: 1975,
     stealth: false,
     png: halTejasPNG,
+    likes: [{ liked: true, uuid: "0x01" }],
   },
   {
     id: 46,
@@ -813,6 +894,7 @@ export const jets = [
     maxSpeed: 2120,
     stealth: false,
     png: mitsubishiF2PNG,
+    likes: [],
   },
   {
     id: 47,
@@ -828,6 +910,10 @@ export const jets = [
     maxSpeed: 1835,
     stealth: false,
     png: kAI_FA50PNG,
+    likes: [
+      { liked: true, uuid: "0x01" },
+      { liked: false, uuid: "0x02" },
+    ],
   },
   {
     id: 48,
@@ -843,6 +929,7 @@ export const jets = [
     maxSpeed: 2440,
     stealth: false,
     png: iAI_KfirPNG,
+    likes: [{ liked: false, uuid: "0x02" }],
   },
   {
     id: 49,
@@ -858,6 +945,7 @@ export const jets = [
     maxSpeed: 2415,
     stealth: false,
     png: englishElectricLightningPNG,
+    likes: [{ liked: true, uuid: "0x01" }],
   },
   {
     id: 50,
@@ -873,6 +961,7 @@ export const jets = [
     maxSpeed: 1038,
     stealth: false,
     png: avroVulcanPNG,
+    likes: [],
   },
 ];
 
