@@ -14,6 +14,8 @@ export default function App() {
   const [currentAircraftPage, setCurrentAircraftPage] = useState("1");
   const [currentProfilePage, setCurrentProfilePage] = useState("1");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [currentLikeColor, setCurrentLikeColor] = useState("#ffffff");
+  const [likedList, setLikedList] = useState([]);
 
   return (
     <>
@@ -26,8 +28,12 @@ export default function App() {
               setCurrentProfilePage={setCurrentProfilePage}
             />
             <Main
+              likedList={likedList}
+              setLikedList={setLikedList}
               currentPage={currentActivePage}
+              currentLikeColor={currentLikeColor}
               currentProfilePage={currentProfilePage}
+              setCurrentLikeColor={setCurrentLikeColor}
               currentAircraftPage={currentAircraftPage}
               setCurrentProfilePage={setCurrentProfilePage}
               setCurrentAircraftPage={setCurrentAircraftPage}

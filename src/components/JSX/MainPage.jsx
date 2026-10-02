@@ -7,13 +7,17 @@ import { jets } from "../../data/LayoutData.js";
 import AircraftHero from "./Aircraft/AircraftHero.jsx";
 
 export default function Main({
-  setCurrentOpenAircraftHero,
-  currentOpenAircraftHero,
-  setCurrentAircraftPage,
-  setCurrentProfilePage,
-  currentAircraftPage,
-  currentProfilePage,
+  likedList,
   currentPage,
+  setLikedList,
+  currentLikeColor,
+  currentProfilePage,
+  currentAircraftPage,
+  setCurrentLikeColor,
+  setCurrentProfilePage,
+  setCurrentAircraftPage,
+  currentOpenAircraftHero,
+  setCurrentOpenAircraftHero,
 }) {
   function handleAircraftHeroRequest(id, array) {
     let currentJet = array.find((element) => element.id === id);
@@ -39,12 +43,16 @@ export default function Main({
         [
           "aircraft",
           <AircraftPage
+            likedList={likedList}
+            setLikedList={setLikedList}
+            currentLikeColor={currentLikeColor}
+            setCurrentLikeColor={setCurrentLikeColor}
             currentAircraftPage={currentAircraftPage}
             setCurrentAircraftPage={setCurrentAircraftPage}
             setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}
           />,
         ],
-        ["about", <AboutPage />],
+        ["about", <AboutPage likedList={likedList} />],
         ["add-aircraft", <AddAircraftPage />],
         [
           "profile",

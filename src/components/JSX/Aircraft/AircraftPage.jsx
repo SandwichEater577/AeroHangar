@@ -1,13 +1,18 @@
 import { jets } from "../../../data/LayoutData.js";
+import AircraftCard from "./AircraftCard.jsx";
 import {
   aircraftPerPage,
   whenNextAircraftShouldCreateNewPage,
 } from "../../../data/LayoutData.js";
 
 export default function AircraftPage({
-  setCurrentOpenAircraftHero,
+  likedList,
+  setLikedList,
+  currentLikeColor,
   currentAircraftPage,
+  setCurrentLikeColor,
   setCurrentAircraftPage,
+  setCurrentOpenAircraftHero,
 }) {
   const totalPages = Math.ceil(jets.length / aircraftPerPage);
 
@@ -20,23 +25,15 @@ export default function AircraftPage({
             currentAircraftPage * aircraftPerPage,
           )
           .map((jet) => (
-            <div
-              className="aircraft-card"
-              id={`aircraft-card-${jet.id}`}
+            <AircraftCard
+              likedList={likedList}
+              setLikedList={setLikedList}
+              currentLikeColor={currentLikeColor}
+              setCurrentLikeColor={setCurrentLikeColor}
               key={jet.id}
-              style={{ backgroundImage: `url(${jet.png})` }}
-              onClick={() => setCurrentOpenAircraftHero(jet.id)}
-            >
-              <div className="jet-name-div">
-                <div className="jet-name">{jet.name}</div>
-                <div className="jet-nickname">{`Aka: "${jet.nickname}"`}</div>
-              </div>
-              <div>
-                <div id="overlay-aircraft-likes-container">
-                  <div id="overlay-aircraft-likes"></div>
-                </div>
-              </div>
-            </div>
+              jet={jet}
+              setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}
+            />
           ))}
       </div>
       <div id="aircraft-page-buttons-container">
@@ -46,9 +43,14 @@ export default function AircraftPage({
             onClick={() =>
               setCurrentAircraftPage((element.value / 6).toString())
             }
-            className={`aircraft-page-button ${
-              currentAircraftPage === element.value.toString() ? "active" : ""
-            }`}
+            className={
+              `aircraft-page-button ` +
+              `${
+                currentAircraftPage === (element.value / 6).toString()
+                  ? "aircraft-page-button-active"
+                  : ""
+              }`
+            }
           >
             {element.value / 6}
           </button>

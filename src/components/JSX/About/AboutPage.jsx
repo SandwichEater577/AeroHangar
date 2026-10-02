@@ -1,3 +1,3 @@
-export default function AboutPage() {
-  return <>About Page</>;
+export default function AboutPage({ likedList }) {
+  return <></>;
 }

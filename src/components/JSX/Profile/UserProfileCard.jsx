@@ -24,7 +24,6 @@ export default function UserProfileCard() {
             {`${user.friends?.length || 0} `}
             {user.friends?.length === 1 ? "Friend" : "Friends"}
           </div>
-          <div>{/*OPTIONAL FREINDS PROFILES*/}</div>
         </div>
       </div>
     </>
