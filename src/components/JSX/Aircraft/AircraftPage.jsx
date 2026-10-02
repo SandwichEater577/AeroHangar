@@ -1,11 +1,7 @@
-import { jets } from "../../../data/LayoutData.js";
 import AircraftCard from "./AircraftCard.jsx";
-import {
-  aircraftPerPage,
-  whenNextAircraftShouldCreateNewPage,
-} from "../../../data/LayoutData.js";
 
 export default function AircraftPage({
+  aircraft,
   likedList,
   setLikedList,
   currentLikeColor,
@@ -14,12 +10,13 @@ export default function AircraftPage({
   setCurrentAircraftPage,
   setCurrentOpenAircraftHero,
 }) {
-  const totalPages = Math.ceil(jets.length / aircraftPerPage);
+  const aircraftPerPage = 4;
+  const totalPages = Math.ceil(aircraft.length / aircraftPerPage);
 
   return (
     <>
       <div id="aircraft-cards-container">
-        {jets
+        {aircraft
           .slice(
             (currentAircraftPage - 1) * aircraftPerPage,
             currentAircraftPage * aircraftPerPage,
@@ -36,23 +33,20 @@ export default function AircraftPage({
             />
           ))}
       </div>
+
       <div id="aircraft-page-buttons-container">
-        {whenNextAircraftShouldCreateNewPage.map((element) => (
+        {Array.from({ length: totalPages }, (_, index) => (
           <button
-            key={element.value}
-            onClick={() =>
-              setCurrentAircraftPage((element.value / 6).toString())
-            }
+            key={index + 1}
+            onClick={() => setCurrentAircraftPage((index + 1).toString())}
             className={
-              `aircraft-page-button ` +
-              `${
-                currentAircraftPage === (element.value / 6).toString()
-                  ? "aircraft-page-button-active"
-                  : ""
-              }`
+              "aircraft-page-button " +
+              (currentAircraftPage === (index + 1).toString()
+                ? "aircraft-page-button-active"
+                : "")
             }
           >
-            {element.value / 6}
+            {index + 1}
           </button>
         ))}
       </div>

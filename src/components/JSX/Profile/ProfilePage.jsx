@@ -2,6 +2,7 @@ import UserProfileCard from "./UserProfileCard.jsx";
 import ProfileUserPages from "./ProfileUserPages.jsx";
 
 export default function ProfilePage({
+  aircraft,
   currentProfilePage,
   setCurrentProfilePage,
   likedList,
@@ -14,6 +15,7 @@ export default function ProfilePage({
 
       <section id="user-profile-main">
         <ProfileUserPages
+          aircraft={aircraft}
           currentProfilePage={currentProfilePage}
           setCurrentProfilePage={setCurrentProfilePage}
           likedList={likedList}

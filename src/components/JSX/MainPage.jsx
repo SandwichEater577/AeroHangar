@@ -3,10 +3,13 @@ import AboutPage from "./About/AboutPage.jsx";
 import AddAircraftPage from "./AddAircraft/AddAircraftPage.jsx";
 import ProfilePage from "./Profile/ProfilePage.jsx";
 import { Fragment } from "react";
-import { jets } from "../../data/LayoutData.js";
 import AircraftHero from "./Aircraft/AircraftHero.jsx";
 
 export default function Main({
+  aircraft,
+  addAircraft,
+  editAircraft,
+  deleteAircraft,
   likedList,
   currentPage,
   setLikedList,
@@ -26,23 +29,25 @@ export default function Main({
 
   let currentOpenAircraftHeroData = handleAircraftHeroRequest(
     currentOpenAircraftHero,
-    jets,
+    aircraft,
   );
 
   return (
     <>
       {currentOpenAircraftHero == 0 ? null : (
-        <>
-          <AircraftHero
-            array={currentOpenAircraftHeroData}
-            setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}
-          />
-        </>
+        <AircraftHero
+          array={currentOpenAircraftHeroData}
+          setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}
+        />
       )}
+
       {[
         [
           "aircraft",
           <AircraftPage
+            aircraft={aircraft}
+            deleteAircraft={deleteAircraft}
+            editAircraft={editAircraft}
             likedList={likedList}
             setLikedList={setLikedList}
             currentLikeColor={currentLikeColor}
@@ -53,10 +58,14 @@ export default function Main({
           />,
         ],
         ["about", <AboutPage likedList={likedList} />],
-        ["add-aircraft", <AddAircraftPage />],
+        [
+          "add-aircraft",
+          <AddAircraftPage aircraft={aircraft} addAircraft={addAircraft} />,
+        ],
         [
           "profile",
           <ProfilePage
+            aircraft={aircraft}
             likedList={likedList}
             currentProfilePage={currentProfilePage}
             setCurrentProfilePage={setCurrentProfilePage}

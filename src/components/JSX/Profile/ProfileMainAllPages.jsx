@@ -1,7 +1,7 @@
-import { jets } from "../../../data/LayoutData.js";
 import "../../CSS/ProfilePages.css";
 
 export default function ProfileMainAllPages({
+  aircraft,
   currentProfilePage,
   likedList = [],
 }) {
@@ -9,7 +9,7 @@ export default function ProfileMainAllPages({
 
   const likedIds = likedList.map((element) => String(element?.id ?? element));
 
-  const likedJets = jets.filter((jet) => likedIds.includes(String(jet.id)));
+  const likedJets = aircraft.filter((jet) => likedIds.includes(String(jet.id)));
 
   switch (currentProfilePage) {
     case "1":
