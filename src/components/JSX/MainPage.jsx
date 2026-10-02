@@ -57,6 +57,7 @@ export default function Main({
         [
           "profile",
           <ProfilePage
+            likedList={likedList}
             currentProfilePage={currentProfilePage}
             setCurrentProfilePage={setCurrentProfilePage}
           />,

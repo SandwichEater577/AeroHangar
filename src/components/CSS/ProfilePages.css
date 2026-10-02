@@ -1,0 +1,94 @@
+#profile-aircraft-panel {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  padding: 18px 12px;
+}
+
+#profile-aircraft-title {
+  width: 100%;
+
+  margin: 0;
+
+  color: #f5f6fa;
+
+  font-size: 1.35rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+#profile-aircraft-grid {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+.profile-aircraft-tile {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 16 / 9;
+
+  overflow: hidden;
+
+  border: 1px solid #2b3e54;
+  border-radius: 5px;
+
+  background-color: #101e31;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.profile-aircraft-heading {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+
+  padding: 35px 15px 12px;
+
+  background: linear-gradient(
+    to top,
+    #051124f2 0%,
+    #051124b5 50%,
+    transparent 100%
+  );
+}
+
+.profile-aircraft-name {
+  margin: 0;
+
+  color: #f5f6fa;
+
+  font-size: 1.25rem;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.profile-aircraft-alias {
+  margin: 4px 0 0;
+
+  color: #a4b4c7;
+
+  font-size: 0.9rem;
+}
+
+.profile-aircraft-empty-message {
+  width: 100%;
+
+  margin: 20px 0;
+
+  color: #a4b4c7;
+
+  font-size: 1rem;
+}

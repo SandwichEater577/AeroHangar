@@ -21,6 +21,7 @@ div.App {
   background-color: #101e31;
   width: 70%;
   height: 95%;
+  border: 2px solid #081f40;
 }
 
 body {

@@ -1,71 +1,61 @@
-export default function ProfileMainAllPages({ currentProfilePage }) {
+import { jets } from "../../../data/LayoutData.js";
+import "../../CSS/ProfilePages.css";
+
+export default function ProfileMainAllPages({
+  currentProfilePage,
+  likedList = [],
+}) {
   let profilePage;
+
+  const likedIds = likedList.map((element) => String(element?.id ?? element));
+
+  const likedJets = jets.filter((jet) => likedIds.includes(String(jet.id)));
 
   switch (currentProfilePage) {
     case "1":
+      profilePage = <div id="profile-page-all">All</div>;
+      break;
+
+    case "2":
       profilePage = (
-        <div id="profile-page-1">
-          <div>A</div>
-          <div>B</div>
-          <div>C</div>
-          <div>D</div>
-          <div>E</div>
-          <div>F</div>
-          <div>G</div>
-          <div>H</div>
-          <div>I</div>
-          <div>J</div>
-          <div>K</div>
-          <div>L</div>
-          <div>M</div>
-          <div>N</div>
-          <div>O</div>
-          <div>P</div>
-          <div>Q</div>
-          <div>R</div>
-          <div>S</div>
-          <div>T</div>
-          <div>U</div>
-          <div>V</div>
-          <div>W</div>
-          <div>X</div>
-          <div>Y</div>
-          <div>Z</div>
-          <div>A</div>
-          <div>B</div>
-          <div>C</div>
-          <div>D</div>
-          <div>E</div>
-          <div>F</div>
-          <div>G</div>
-          <div>H</div>
-          <div>I</div>
-          <div>J</div>
-          <div>K</div>
-          <div>L</div>
-          <div>M</div>
-          <div>N</div>
-          <div>O</div>
-          <div>P</div>
-          <div>Q</div>
-          <div>R</div>
-          <div>S</div>
-          <div>T</div>
-          <div>U</div>
-          <div>V</div>
-          <div>W</div>
-          <div>X</div>
-          <div>Y</div>
-          <div>Z</div>
-        </div>
+        <section id="profile-aircraft-panel">
+          <h2 id="profile-aircraft-title">Liked Aircraft:</h2>
+
+          {likedJets.length > 0 ? (
+            <div id="profile-aircraft-grid">
+              {likedJets.map((jet) => (
+                <article
+                  className="profile-aircraft-tile"
+                  key={jet.id}
+                  style={{
+                    backgroundImage: `url(${jet.png})`,
+                  }}
+                >
+                  <div className="profile-aircraft-heading">
+                    <h3 className="profile-aircraft-name">{jet.name}</h3>
+
+                    <p className="profile-aircraft-alias">
+                      {`Aka: "${jet.nickname}"`}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="profile-aircraft-empty-message">
+              No liked aircraft yet.
+            </p>
+          )}
+        </section>
       );
       break;
-    case "2":
-      profilePage = <div id="profile-page-2">Profile Page 2</div>;
-      break;
+
     case "3":
-      profilePage = <div id="profile-page-3">Profile Page 3</div>;
+      profilePage = <div id="profile-page-3">Page 3</div>;
       break;
+
+    default:
+      profilePage = null;
   }
 
   return <>{profilePage}</>;

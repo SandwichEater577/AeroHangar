@@ -4,6 +4,7 @@ import ProfileUserPages from "./ProfileUserPages.jsx";
 export default function ProfilePage({
   currentProfilePage,
   setCurrentProfilePage,
+  likedList,
 }) {
   return (
     <div id="profile-page">
@@ -15,6 +16,7 @@ export default function ProfilePage({
         <ProfileUserPages
           currentProfilePage={currentProfilePage}
           setCurrentProfilePage={setCurrentProfilePage}
+          likedList={likedList}
         />
       </section>
     </div>
