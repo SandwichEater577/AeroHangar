@@ -7,6 +7,9 @@ import "./components/CSS/Header.css";
 import "./components/CSS/Profile.css";
 import "./components/CSS/Aircraft.css";
 import "./components/CSS/Login.css";
+import "./components/CSS/ProfileAll.css";
+import "./components/CSS/ProfileActivity.css";
+import "./components/CSS/ProfileAircraft.css";
 
 export default function App() {
   const [currentOpenAircraftHero, setCurrentOpenAircraftHero] = useState(0);

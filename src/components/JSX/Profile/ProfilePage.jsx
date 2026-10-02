@@ -10,6 +10,7 @@ export default function ProfilePage({
       <section id="user-profile-header">
         <UserProfileCard />
       </section>
+
       <section id="user-profile-main">
         <ProfileUserPages
           currentProfilePage={currentProfilePage}
