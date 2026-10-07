@@ -88,6 +88,8 @@ export default function App() {
             />
 
             <Main
+              newAircraftList={newAircraftList}
+              setNewAircraftList={setNewAircraftList}
               addAircraftNameInput={addAircraftNameInput}
               setAddAircraftNameInput={setAddAircraftNameInput}
               addAircraftNicknameInput={addAircraftNicknameInput}
