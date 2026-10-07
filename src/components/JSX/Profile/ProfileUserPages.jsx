@@ -2,6 +2,8 @@ import { profile_main_header } from "../../../data/LayoutData.js";
 import ProfileMainAllPages from "./ProfileMainAllPages.jsx";
 
 export default function ProfileUserPages({
+  newAircraftList,
+  setNewAircraftList,
   aircraft,
   currentProfilePage,
   setCurrentProfilePage,
@@ -30,6 +32,8 @@ export default function ProfileUserPages({
 
         <div id="user-profile-main-page-container">
           <ProfileMainAllPages
+            newAircraftList={newAircraftList}
+            setNewAircraftList={setNewAircraftList}
             aircraft={aircraft}
             currentProfilePage={currentProfilePage}
             likedList={likedList}

@@ -9,25 +9,54 @@ import "./components/CSS/Profile.css";
 import "./components/CSS/Aircraft.css";
 import "./components/CSS/Login.css";
 import "./components/CSS/ProfilePages.css";
+import "./components/CSS/AddAircraft.css";
 
 export default function App() {
   const [currentOpenAircraftHero, setCurrentOpenAircraftHero] = useState(0);
-  const [currentActivePage, setCurrentActivePage] = useState("aircraft");
+  const [currentActivePage, setCurrentActivePage] = useState("add-aircraft");
   const [currentAircraftPage, setCurrentAircraftPage] = useState("1");
   const [currentProfilePage, setCurrentProfilePage] = useState("1");
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
   const [currentLikeColor, setCurrentLikeColor] = useState("#ffffff");
   const [likedList, setLikedList] = useState([]);
-
   const [aircraft, setAircraft] = useState(jets);
+  const [newAircraftList, setNewAircraftList] = useState([]);
+
+  // ADD AIRCRAFT INPUT STATES
+  const [addAircraftNameInput, setAddAircraftNameInput] = useState("");
+  const [addAircraftNicknameInput, setAddAircraftNicknameInput] = useState("");
+  const [addAircraftManufacturerInput, setAddAircraftManufacturerInput] =
+    useState("");
+  const [addAircraftCountryInput, setAddAircraftCountryInput] = useState("");
+  const [addAircraftRoleInput, setAddAircraftRoleInput] = useState("");
+  const [addAircraftTypeInput, setAddAircraftTypeInput] = useState("");
+  const [addAircraftFirstFlightInput, setAddAircraftFirstFlightInput] =
+    useState("");
+  const [addAircraftStatusInput, setAddAircraftStatusInput] = useState("");
+  const [addAircraftEngineTypeInput, setAddAircraftEngineTypeInput] =
+    useState("");
+  const [addAircraftEngineCountInput, setAddAircraftEngineCountInput] =
+    useState("");
+  const [addAircraftVMAXinput, setAddAircraftVMAXInput] = useState(0);
+  const [addAircraftStealthInput, setAddAircraftStealthInput] = useState(false);
 
   function addAircraft(newAircraft) {
     setAircraft((currentAircraft) => [...currentAircraft, newAircraft]);
+    setNewAircraftList((currentNewAircraftList) => {
+      const updatedAircraftList = [...currentNewAircraftList, newAircraft];
+      return updatedAircraftList;
+    });
   }
 
   function editAircraft(editedAircraft) {
     setAircraft((currentAircraft) =>
       currentAircraft.map((jet) =>
+        jet.id === editedAircraft.id ? editedAircraft : jet,
+      ),
+    );
+
+    setNewAircraftList((currentNewAircraftList) =>
+      currentNewAircraftList.map((jet) =>
         jet.id === editedAircraft.id ? editedAircraft : jet,
       ),
     );
@@ -40,6 +69,10 @@ export default function App() {
 
     setLikedList((currentLikedList) =>
       currentLikedList.filter((jetId) => jetId !== id),
+    );
+
+    setNewAircraftList((currentNewAircraftList) =>
+      currentNewAircraftList.filter((jet) => jet.id !== id),
     );
   }
 
@@ -55,6 +88,30 @@ export default function App() {
             />
 
             <Main
+              addAircraftNameInput={addAircraftNameInput}
+              setAddAircraftNameInput={setAddAircraftNameInput}
+              addAircraftNicknameInput={addAircraftNicknameInput}
+              setAddAircraftNicknameInput={setAddAircraftNicknameInput}
+              addAircraftManufacturerInput={addAircraftManufacturerInput}
+              setAddAircraftManufacturerInput={setAddAircraftManufacturerInput}
+              addAircraftCountryInput={addAircraftCountryInput}
+              setAddAircraftCountryInput={setAddAircraftCountryInput}
+              addAircraftRoleInput={addAircraftRoleInput}
+              setAddAircraftRoleInput={setAddAircraftRoleInput}
+              addAircraftTypeInput={addAircraftTypeInput}
+              setAddAircraftTypeInput={setAddAircraftTypeInput}
+              addAircraftFirstFlightInput={addAircraftFirstFlightInput}
+              setAddAircraftFirstFlightInput={setAddAircraftFirstFlightInput}
+              addAircraftStatusInput={addAircraftStatusInput}
+              setAddAircraftStatusInput={setAddAircraftStatusInput}
+              addAircraftEngineTypeInput={addAircraftEngineTypeInput}
+              setAddAircraftEngineTypeInput={setAddAircraftEngineTypeInput}
+              addAircraftEngineCountInput={addAircraftEngineCountInput}
+              setAddAircraftEngineCountInput={setAddAircraftEngineCountInput}
+              addAircraftVMAXinput={addAircraftVMAXinput}
+              setAddAircraftVMAXInput={setAddAircraftVMAXInput}
+              addAircraftStealthInput={addAircraftStealthInput}
+              setAddAircraftStealthInput={setAddAircraftStealthInput}
               aircraft={aircraft}
               addAircraft={addAircraft}
               editAircraft={editAircraft}
@@ -63,10 +120,10 @@ export default function App() {
               setLikedList={setLikedList}
               currentPage={currentActivePage}
               currentLikeColor={currentLikeColor}
-              currentProfilePage={currentProfilePage}
               setCurrentLikeColor={setCurrentLikeColor}
-              currentAircraftPage={currentAircraftPage}
+              currentProfilePage={currentProfilePage}
               setCurrentProfilePage={setCurrentProfilePage}
+              currentAircraftPage={currentAircraftPage}
               setCurrentAircraftPage={setCurrentAircraftPage}
               currentOpenAircraftHero={currentOpenAircraftHero}
               setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}

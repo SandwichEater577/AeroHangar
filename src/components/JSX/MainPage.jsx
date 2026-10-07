@@ -6,13 +6,39 @@ import { Fragment } from "react";
 import AircraftHero from "./Aircraft/AircraftHero.jsx";
 
 export default function Main({
+  newAircraftList,
+  setNewAircraftList,
+  addAircraftNameInput,
+  setAddAircraftNameInput,
+  addAircraftNicknameInput,
+  setAddAircraftNicknameInput,
+  addAircraftManufacturerInput,
+  setAddAircraftManufacturerInput,
+  addAircraftCountryInput,
+  setAddAircraftCountryInput,
+  addAircraftRoleInput,
+  setAddAircraftRoleInput,
+  addAircraftTypeInput,
+  setAddAircraftTypeInput,
+  addAircraftFirstFlightInput,
+  setAddAircraftFirstFlightInput,
+  addAircraftStatusInput,
+  setAddAircraftStatusInput,
+  addAircraftEngineTypeInput,
+  setAddAircraftEngineTypeInput,
+  addAircraftEngineCountInput,
+  setAddAircraftEngineCountInput,
+  addAircraftVMAXinput,
+  setAddAircraftVMAXInput,
+  addAircraftStealthInput,
+  setAddAircraftStealthInput,
   aircraft,
-  addAircraft,
-  editAircraft,
-  deleteAircraft,
   likedList,
+  addAircraft,
   currentPage,
+  editAircraft,
   setLikedList,
+  deleteAircraft,
   currentLikeColor,
   currentProfilePage,
   currentAircraftPage,
@@ -23,18 +49,17 @@ export default function Main({
   setCurrentOpenAircraftHero,
 }) {
   function handleAircraftHeroRequest(id, array) {
-    let currentJet = array.find((element) => element.id === id);
-    return currentJet;
+    return array.find((element) => element.id === id);
   }
 
-  let currentOpenAircraftHeroData = handleAircraftHeroRequest(
+  const currentOpenAircraftHeroData = handleAircraftHeroRequest(
     currentOpenAircraftHero,
     aircraft,
   );
 
   return (
     <>
-      {currentOpenAircraftHero == 0 ? null : (
+      {currentOpenAircraftHero !== 0 && (
         <AircraftHero
           array={currentOpenAircraftHeroData}
           setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}
@@ -60,11 +85,40 @@ export default function Main({
         ["about", <AboutPage likedList={likedList} />],
         [
           "add-aircraft",
-          <AddAircraftPage aircraft={aircraft} addAircraft={addAircraft} />,
+          <AddAircraftPage
+            aircraft={aircraft}
+            addAircraft={addAircraft}
+            addAircraftNameInput={addAircraftNameInput}
+            setAddAircraftNameInput={setAddAircraftNameInput}
+            addAircraftNicknameInput={addAircraftNicknameInput}
+            setAddAircraftNicknameInput={setAddAircraftNicknameInput}
+            addAircraftManufacturerInput={addAircraftManufacturerInput}
+            setAddAircraftManufacturerInput={setAddAircraftManufacturerInput}
+            addAircraftCountryInput={addAircraftCountryInput}
+            setAddAircraftCountryInput={setAddAircraftCountryInput}
+            addAircraftRoleInput={addAircraftRoleInput}
+            setAddAircraftRoleInput={setAddAircraftRoleInput}
+            addAircraftTypeInput={addAircraftTypeInput}
+            setAddAircraftTypeInput={setAddAircraftTypeInput}
+            addAircraftFirstFlightInput={addAircraftFirstFlightInput}
+            setAddAircraftFirstFlightInput={setAddAircraftFirstFlightInput}
+            addAircraftStatusInput={addAircraftStatusInput}
+            setAddAircraftStatusInput={setAddAircraftStatusInput}
+            addAircraftEngineTypeInput={addAircraftEngineTypeInput}
+            setAddAircraftEngineTypeInput={setAddAircraftEngineTypeInput}
+            addAircraftEngineCountInput={addAircraftEngineCountInput}
+            setAddAircraftEngineCountInput={setAddAircraftEngineCountInput}
+            addAircraftVMAXinput={addAircraftVMAXinput}
+            setAddAircraftVMAXInput={setAddAircraftVMAXInput}
+            addAircraftStealthInput={addAircraftStealthInput}
+            setAddAircraftStealthInput={setAddAircraftStealthInput}
+          />,
         ],
         [
           "profile",
           <ProfilePage
+            newAircraftList={newAircraftList}
+            setNewAircraftList={setNewAircraftList}
             aircraft={aircraft}
             likedList={likedList}
             currentProfilePage={currentProfilePage}

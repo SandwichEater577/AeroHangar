@@ -2,6 +2,8 @@ import UserProfileCard from "./UserProfileCard.jsx";
 import ProfileUserPages from "./ProfileUserPages.jsx";
 
 export default function ProfilePage({
+  newAircraftList,
+  setNewAircraftList,
   aircraft,
   currentProfilePage,
   setCurrentProfilePage,
@@ -15,6 +17,8 @@ export default function ProfilePage({
 
       <section id="user-profile-main">
         <ProfileUserPages
+          newAircraftList={newAircraftList}
+          setNewAircraftList={setNewAircraftList}
           aircraft={aircraft}
           currentProfilePage={currentProfilePage}
           setCurrentProfilePage={setCurrentProfilePage}

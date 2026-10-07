@@ -1,0 +1,365 @@
+#add-aircraft-h1 {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#add-aircraft-title {
+  margin-bottom: 0;
+
+  color: #f5f6fa;
+
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+#add-aircraft-description {
+  color: #a4b4c7;
+
+  font-size: 1rem;
+}
+
+#add-aircraft-form-details-container {
+  display: flex;
+
+  width: 100%;
+  height: auto;
+
+  margin-top: 25px;
+
+  color: #f5f6fa;
+}
+
+#aircraft-details-left-container,
+#aircraft-details-right-container {
+  display: flex;
+  flex-direction: column;
+
+  width: 50%;
+  height: auto;
+}
+
+#aircraft-details-left-container {
+  padding-right: 20px;
+
+  border-right: 1px solid #ffffff20;
+}
+
+#aircraft-details-right-container {
+  padding-left: 20px;
+}
+
+.aircraft-detail-field {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  margin-bottom: 14px;
+
+  gap: 6px;
+}
+
+.aircraft-detail-label {
+  color: #f5f6fa;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.aircraft-detail-input {
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 44px;
+
+  padding: 0 12px;
+
+  border: 2px solid #ffffff20;
+  border-radius: 5px;
+
+  outline: none;
+
+  background-color: #ffffff05;
+  color: #f5f6fa;
+
+  font-family: inherit;
+  font-size: 1rem;
+
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.aircraft-detail-input:hover {
+  border-color: #5d7288;
+}
+
+.aircraft-detail-input:focus {
+  border-color: #f5b32c;
+  background-color: #ffffff08;
+}
+
+.aircraft-detail-input::placeholder {
+  color: #5d7288;
+}
+
+select.aircraft-detail-input {
+  cursor: pointer;
+}
+
+select.aircraft-detail-input option {
+  background-color: #101e31;
+  color: #f5f6fa;
+}
+
+select.aircraft-detail-input optgroup {
+  background-color: #101e31;
+  color: #f5b32c;
+
+  font-weight: 600;
+}
+
+select.aircraft-detail-input optgroup option {
+  color: #f5f6fa;
+
+  font-weight: 400;
+}
+
+input[type="number"].aircraft-detail-input {
+  color-scheme: dark;
+}
+
+.aircraft-detail-radio-input {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  padding: 8px 4px;
+
+  gap: 10px;
+}
+
+.aircraft-status-radio-input {
+  display: flex;
+  align-items: center;
+
+  width: fit-content;
+
+  gap: 10px;
+
+  color: #f5f6fa;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.aircraft-status-radio-input:hover {
+  color: #f5b32c;
+}
+
+.input-radio-button-aircraft-status {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 20px;
+  height: 20px;
+
+  flex-shrink: 0;
+
+  margin: 0;
+
+  border: 2px solid #5d7288;
+  border-radius: 50%;
+
+  outline: none;
+
+  background-color: transparent;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.input-radio-button-aircraft-status:hover {
+  border-color: #f5b32c;
+}
+
+.input-radio-button-aircraft-status:checked {
+  border-color: #f5b32c;
+
+  background: radial-gradient(circle, #f5b32c 0%, #f5b32c 38%, transparent 42%);
+}
+
+.input-radio-button-aircraft-status:focus-visible {
+  outline: 2px solid #f5b32c;
+  outline-offset: 2px;
+}
+
+#aircraft-status-field {
+  margin-bottom: 18px;
+}
+
+#aircraft-stealth-container {
+  display: flex;
+  align-items: center;
+
+  width: fit-content;
+
+  padding: 8px 4px;
+
+  gap: 10px;
+
+  color: #f5f6fa;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+#aircraft-stealth-container:hover {
+  color: #f5b32c;
+}
+
+#aircraft-stealth {
+  appearance: none;
+  -webkit-appearance: none;
+
+  position: relative;
+
+  width: 20px;
+  height: 20px;
+
+  flex-shrink: 0;
+
+  margin: 0;
+
+  border: 2px solid #5d7288;
+  border-radius: 4px;
+
+  outline: none;
+
+  background-color: transparent;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+#aircraft-stealth:hover {
+  border-color: #f5b32c;
+}
+
+#aircraft-stealth:checked {
+  border-color: #f5b32c;
+  background-color: #f5b32c;
+}
+
+#aircraft-stealth:checked::after {
+  content: "";
+
+  position: absolute;
+
+  top: 2px;
+  left: 5px;
+
+  width: 5px;
+  height: 10px;
+
+  border-right: 2px solid #101e31;
+  border-bottom: 2px solid #101e31;
+
+  transform: rotate(45deg);
+}
+
+#aircraft-stealth:focus-visible {
+  outline: 2px solid #f5b32c;
+  outline-offset: 2px;
+}
+
+#add-aircraft-form-image-container {
+  width: 100%;
+
+  margin-top: 20px;
+  padding-top: 20px;
+
+  border-top: 1px solid #ffffff20;
+}
+
+#add-aircraft-form-button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  width: 100%;
+
+  margin-top: 20px;
+  padding-top: 20px;
+
+  gap: 10px;
+
+  border-top: 1px solid #ffffff20;
+}
+
+#add-aircraft-form-button-container button {
+  min-width: 140px;
+  height: 44px;
+
+  padding: 0 20px;
+
+  border: 2px solid #2b3e54;
+  border-radius: 5px;
+
+  background-color: #1a304e;
+  color: #f5f6fa;
+
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+#add-aircraft-form-button-container button:hover {
+  border-color: #f5b32c;
+
+  background-color: #f5b32c;
+  color: #101e31;
+}
+
+#add-aircraft-form-button-container button:focus-visible {
+  outline: 2px solid #f5b32c;
+  outline-offset: 2px;
+}
+
+@media (max-width: 800px) {
+  #add-aircraft-form-details-container {
+    flex-direction: column;
+  }
+
+  #aircraft-details-left-container,
+  #aircraft-details-right-container {
+    width: 100%;
+
+    padding: 0;
+
+    border: none;
+  }
+
+  #aircraft-details-right-container {
+    margin-top: 10px;
+    padding-top: 20px;
+
+    border-top: 1px solid #ffffff20;
+  }
+}
