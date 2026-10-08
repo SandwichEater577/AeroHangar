@@ -68,6 +68,11 @@
   font-weight: 600;
 }
 
+.aircraft-validation-error {
+  color: #ff9999;
+  font-size: 0.875rem;
+}
+
 .aircraft-detail-input {
   box-sizing: border-box;
 
@@ -289,6 +294,70 @@ input[type="number"].aircraft-detail-input {
   padding-top: 20px;
 
   border-top: 1px solid #ffffff20;
+}
+
+.aircraft-image-help {
+  margin: 0;
+
+  color: #a4b4c7;
+  font-size: 0.9rem;
+}
+
+.aircraft-image-input {
+  box-sizing: border-box;
+
+  width: 100%;
+
+  padding: 12px;
+
+  border: 2px dashed #2b3e54;
+  border-radius: 5px;
+
+  background-color: #ffffff05;
+  color: #f5f6fa;
+
+  cursor: pointer;
+}
+
+.aircraft-image-loading {
+  color: #a4b4c7;
+}
+
+.aircraft-image-preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  padding-top: 8px;
+}
+
+.aircraft-image-preview {
+  display: block;
+
+  width: min(100%, 560px);
+  max-height: 320px;
+
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+
+  border: 1px solid #2b3e54;
+  border-radius: 5px;
+
+  background-color: #051124;
+}
+
+.aircraft-remove-image-button {
+  padding: 9px 14px;
+
+  border: 1px solid #2b3e54;
+  border-radius: 4px;
+
+  background-color: #1a304e;
+  color: #f5f6fa;
+
+  cursor: pointer;
 }
 
 #add-aircraft-form-button-container {

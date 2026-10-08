@@ -83,6 +83,40 @@
   font-size: 0.9rem;
 }
 
+.profile-aircraft-actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-top: 10px;
+
+  gap: 6px;
+}
+
+.profile-aircraft-action-button {
+  padding: 5px 9px;
+
+  border: 1px solid #5d7288;
+  border-radius: 4px;
+
+  background-color: #101e31cc;
+  color: #f5f6fa;
+
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.profile-aircraft-action-button:hover,
+.profile-aircraft-action-button[aria-pressed="true"] {
+  border-color: #f5b32c;
+  color: #f5b32c;
+}
+
+.profile-aircraft-delete-button:hover {
+  border-color: #ff9999;
+  color: #ff9999;
+}
+
 .profile-aircraft-empty-message {
   width: 100%;
 

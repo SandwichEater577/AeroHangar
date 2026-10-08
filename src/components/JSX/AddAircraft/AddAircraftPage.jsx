@@ -1,3 +1,16 @@
+import { useRef, useState } from "react";
+import { createAddAircraftHandlers } from "../../../handlers/aircraftHandlers.js";
+
+function FieldError({ message }) {
+  if (!message) return null;
+
+  return (
+    <span className="aircraft-validation-error" role="alert">
+      {message}
+    </span>
+  );
+}
+
 export default function AddAircraftPage({
   addAircraftNameInput,
   setAddAircraftNameInput,
@@ -26,49 +39,63 @@ export default function AddAircraftPage({
   aircraft,
   addAircraft,
 }) {
-  const handleInputChange = (settingFunction) => (event) => {
-    settingFunction(event.target.value);
-  };
+  const [addAircraftImageInput, setAddAircraftImageInput] = useState("");
+  const [validationErrors, setValidationErrors] = useState({});
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const imageFileInputRef = useRef(null);
+  const imageReaderRef = useRef(null);
 
-  const handleAddAircraft = () => {
-    const nextId =
-      aircraft.reduce(
-        (highestId, currentAircraft) => Math.max(highestId, currentAircraft.id),
-        0,
-      ) + 1;
-
-    addAircraft({
-      id: nextId,
+  const {
+    handleImageChange,
+    handleRemoveImage,
+    handleFieldChange,
+    handleMaxSpeedChange,
+    handleStealthChange,
+    handleAddAircraft,
+  } = createAddAircraftHandlers({
+    fields: {
       name: addAircraftNameInput,
       nickname: addAircraftNicknameInput,
       manufacturer: addAircraftManufacturerInput,
       country: addAircraftCountryInput,
       role: addAircraftRoleInput,
       aircraftType: addAircraftTypeInput,
-      birthDate: Number(addAircraftFirstFlightInput),
+      firstFlight: addAircraftFirstFlightInput,
       status: addAircraftStatusInput,
       engineType: addAircraftEngineTypeInput,
-      engines: Number(addAircraftEngineCountInput),
-      maxSpeed: Number(addAircraftVMAXinput),
+      engines: addAircraftEngineCountInput,
+      maxSpeed: addAircraftVMAXinput,
       stealth: addAircraftStealthInput,
-      png: "",
-      likes: [],
-    });
-
-    setAddAircraftNameInput("");
-    setAddAircraftNicknameInput("");
-    setAddAircraftManufacturerInput("");
-    setAddAircraftCountryInput("");
-    setAddAircraftRoleInput("");
-    setAddAircraftTypeInput("");
-    setAddAircraftFirstFlightInput("");
-    setAddAircraftStatusInput("");
-    setAddAircraftEngineTypeInput("");
-    setAddAircraftEngineCountInput("");
-    setAddAircraftVMAXInput(0);
-    setAddAircraftStealthInput(false);
-  };
-
+      setMaxSpeed: setAddAircraftVMAXInput,
+      setStealth: setAddAircraftStealthInput,
+    },
+    aircraft,
+    addAircraft,
+    imageHandlerOptions: {
+      imageReaderRef,
+      imageFileInputRef,
+      setIsImageLoading,
+      setAddAircraftImageInput,
+      setValidationErrors,
+    },
+    imageInput: addAircraftImageInput,
+    isImageLoading,
+    setValidationErrors,
+    inputSetters: {
+      name: setAddAircraftNameInput,
+      nickname: setAddAircraftNicknameInput,
+      manufacturer: setAddAircraftManufacturerInput,
+      country: setAddAircraftCountryInput,
+      role: setAddAircraftRoleInput,
+      aircraftType: setAddAircraftTypeInput,
+      firstFlight: setAddAircraftFirstFlightInput,
+      status: setAddAircraftStatusInput,
+      engineType: setAddAircraftEngineTypeInput,
+      engines: setAddAircraftEngineCountInput,
+      maxSpeed: setAddAircraftVMAXInput,
+      stealth: setAddAircraftStealthInput,
+    },
+  });
   return (
     <>
       <div id="add-aircraft-h1">
@@ -89,10 +116,10 @@ export default function AddAircraftPage({
               type="text"
               placeholder="F-16"
               value={addAircraftNameInput}
-              onChange={handleInputChange(setAddAircraftNameInput)}
+              onChange={handleFieldChange(setAddAircraftNameInput)}
             />
+            <FieldError message={validationErrors["aircraft-name"]} />
           </div>
-
           <div id="aircraft-nickname-field" className="aircraft-detail-field">
             <label
               className="aircraft-detail-label"
@@ -106,10 +133,10 @@ export default function AddAircraftPage({
               placeholder="Fighting Falcon"
               type="text"
               value={addAircraftNicknameInput}
-              onChange={handleInputChange(setAddAircraftNicknameInput)}
+              onChange={handleFieldChange(setAddAircraftNicknameInput)}
             />
+            <FieldError message={validationErrors["aircraft-nickname"]} />
           </div>
-
           <div
             id="aircraft-manufacturer-field"
             className="aircraft-detail-field"
@@ -126,25 +153,23 @@ export default function AddAircraftPage({
               placeholder="Lockheed Martin"
               type="text"
               value={addAircraftManufacturerInput}
-              onChange={handleInputChange(setAddAircraftManufacturerInput)}
+              onChange={handleFieldChange(setAddAircraftManufacturerInput)}
             />
+            <FieldError message={validationErrors["aircraft-manufacturer"]} />
           </div>
-
           <div id="aircraft-country-field" className="aircraft-detail-field">
             <label className="aircraft-detail-label" htmlFor="aircraft-country">
               Country
             </label>
-
             <select
               id="aircraft-country"
               className="aircraft-detail-input"
               value={addAircraftCountryInput}
-              onChange={handleInputChange(setAddAircraftCountryInput)}
+              onChange={handleFieldChange(setAddAircraftCountryInput)}
             >
               <option value="" disabled>
                 Select country...
               </option>
-
               <option value="Argentina">Argentina</option>
               <option value="Australia">Australia</option>
               <option value="Austria">Austria</option>
@@ -181,23 +206,21 @@ export default function AddAircraftPage({
               <option value="International">International</option>
               <option value="Other">Other</option>
             </select>
+            <FieldError message={validationErrors["aircraft-country"]} />
           </div>
-
           <div id="aircraft-role-field" className="aircraft-detail-field">
             <label className="aircraft-detail-label" htmlFor="aircraft-role">
               Role
             </label>
-
             <select
               id="aircraft-role"
               className="aircraft-detail-input"
               value={addAircraftRoleInput}
-              onChange={handleInputChange(setAddAircraftRoleInput)}
+              onChange={handleFieldChange(setAddAircraftRoleInput)}
             >
               <option value="" disabled>
                 Select role...
               </option>
-
               <optgroup label="Combat">
                 <option value="Fighter">Fighter</option>
                 <option value="Air Superiority Fighter">
@@ -215,7 +238,6 @@ export default function AddAircraftPage({
                 <option value="Tactical Bomber">Tactical Bomber</option>
                 <option value="Close Air Support">Close Air Support</option>
               </optgroup>
-
               <optgroup label="Support">
                 <option value="Transport">Transport</option>
                 <option value="Strategic Transport">Strategic Transport</option>
@@ -226,7 +248,6 @@ export default function AddAircraftPage({
                 <option value="Maritime Patrol">Maritime Patrol</option>
                 <option value="Search and Rescue">Search and Rescue</option>
               </optgroup>
-
               <optgroup label="Special Mission">
                 <option value="Reconnaissance">Reconnaissance</option>
                 <option value="Surveillance">Surveillance</option>
@@ -237,7 +258,6 @@ export default function AddAircraftPage({
                   Anti-Submarine Warfare
                 </option>
               </optgroup>
-
               <optgroup label="Other">
                 <option value="Experimental">Experimental</option>
                 <option value="Research">Research</option>
@@ -245,23 +265,21 @@ export default function AddAircraftPage({
                 <option value="Other">Other</option>
               </optgroup>
             </select>
+            <FieldError message={validationErrors["aircraft-role"]} />
           </div>
-
           <div id="aircraft-type-field" className="aircraft-detail-field">
             <label className="aircraft-detail-label" htmlFor="aircraft-type">
               Aircraft Type
             </label>
-
             <select
               id="aircraft-type"
               className="aircraft-detail-input"
               value={addAircraftTypeInput}
-              onChange={handleInputChange(setAddAircraftTypeInput)}
+              onChange={handleFieldChange(setAddAircraftTypeInput)}
             >
               <option value="" disabled>
                 Select aircraft type...
               </option>
-
               <option value="Fixed-Wing">Fixed-Wing</option>
               <option value="Helicopter">Helicopter</option>
               <option value="Tiltrotor">Tiltrotor</option>
@@ -271,8 +289,8 @@ export default function AddAircraftPage({
               <option value="Unmanned Aircraft">Unmanned Aircraft</option>
               <option value="Other">Other</option>
             </select>
+            <FieldError message={validationErrors["aircraft-type"]} />
           </div>
-
           <div
             id="aircraft-first-flight-field"
             className="aircraft-detail-field"
@@ -283,7 +301,6 @@ export default function AddAircraftPage({
             >
               First Flight (Year)
             </label>
-
             <input
               id="aircraft-first-flight"
               className="aircraft-detail-input"
@@ -291,15 +308,14 @@ export default function AddAircraftPage({
               min="1903"
               max={new Date().getFullYear()}
               value={addAircraftFirstFlightInput}
-              onChange={handleInputChange(setAddAircraftFirstFlightInput)}
+              onChange={handleFieldChange(setAddAircraftFirstFlightInput)}
             />
+            <FieldError message={validationErrors["aircraft-first-flight"]} />
           </div>
         </div>
-
         <div id="aircraft-details-right-container">
           <div id="aircraft-status-field" className="aircraft-detail-field">
             <label className="aircraft-detail-label">Status</label>
-
             <div id="aircraft-status" className="aircraft-detail-radio-input">
               <label className="aircraft-status-radio-input">
                 <input
@@ -308,11 +324,10 @@ export default function AddAircraftPage({
                   value="Active"
                   className="input-radio-button-aircraft-status"
                   checked={addAircraftStatusInput === "Active"}
-                  onChange={handleInputChange(setAddAircraftStatusInput)}
+                  onChange={handleFieldChange(setAddAircraftStatusInput)}
                 />
                 Active
               </label>
-
               <label className="aircraft-status-radio-input">
                 <input
                   type="radio"
@@ -320,11 +335,10 @@ export default function AddAircraftPage({
                   value="Retired"
                   className="input-radio-button-aircraft-status"
                   checked={addAircraftStatusInput === "Retired"}
-                  onChange={handleInputChange(setAddAircraftStatusInput)}
+                  onChange={handleFieldChange(setAddAircraftStatusInput)}
                 />
                 Retired
               </label>
-
               <label className="aircraft-status-radio-input">
                 <input
                   type="radio"
@@ -332,11 +346,10 @@ export default function AddAircraftPage({
                   value="Prototype"
                   className="input-radio-button-aircraft-status"
                   checked={addAircraftStatusInput === "Prototype"}
-                  onChange={handleInputChange(setAddAircraftStatusInput)}
+                  onChange={handleFieldChange(setAddAircraftStatusInput)}
                 />
                 Prototype
               </label>
-
               <label className="aircraft-status-radio-input">
                 <input
                   type="radio"
@@ -344,11 +357,10 @@ export default function AddAircraftPage({
                   value="Experimental"
                   className="input-radio-button-aircraft-status"
                   checked={addAircraftStatusInput === "Experimental"}
-                  onChange={handleInputChange(setAddAircraftStatusInput)}
+                  onChange={handleFieldChange(setAddAircraftStatusInput)}
                 />
                 Experimental
               </label>
-
               <label className="aircraft-status-radio-input">
                 <input
                   type="radio"
@@ -356,11 +368,10 @@ export default function AddAircraftPage({
                   value="Under Development"
                   className="input-radio-button-aircraft-status"
                   checked={addAircraftStatusInput === "Under Development"}
-                  onChange={handleInputChange(setAddAircraftStatusInput)}
+                  onChange={handleFieldChange(setAddAircraftStatusInput)}
                 />
                 Under Development
               </label>
-
               <label className="aircraft-status-radio-input">
                 <input
                   type="radio"
@@ -368,13 +379,13 @@ export default function AddAircraftPage({
                   value="Cancelled"
                   className="input-radio-button-aircraft-status"
                   checked={addAircraftStatusInput === "Cancelled"}
-                  onChange={handleInputChange(setAddAircraftStatusInput)}
+                  onChange={handleFieldChange(setAddAircraftStatusInput)}
                 />
                 Cancelled
               </label>
             </div>
+            <FieldError message={validationErrors["aircraft-status"]} />
           </div>
-
           <div
             id="aircraft-engine-type-field"
             className="aircraft-detail-field"
@@ -385,33 +396,28 @@ export default function AddAircraftPage({
             >
               Engine Type
             </label>
-
             <select
               id="aircraft-engine-type"
               className="aircraft-detail-input"
               value={addAircraftEngineTypeInput}
-              onChange={handleInputChange(setAddAircraftEngineTypeInput)}
+              onChange={handleFieldChange(setAddAircraftEngineTypeInput)}
             >
               <option value="" disabled>
                 Select engine type...
               </option>
-
               <optgroup label="Jet">
                 <option value="Turbojet">Turbojet</option>
                 <option value="Turbofan">Turbofan</option>
                 <option value="Ramjet">Ramjet</option>
                 <option value="Scramjet">Scramjet</option>
               </optgroup>
-
               <optgroup label="Propeller">
                 <option value="Piston">Piston</option>
                 <option value="Turboprop">Turboprop</option>
               </optgroup>
-
               <optgroup label="Rotorcraft">
                 <option value="Turboshaft">Turboshaft</option>
               </optgroup>
-
               <optgroup label="Other">
                 <option value="Rocket">Rocket</option>
                 <option value="Electric">Electric</option>
@@ -419,13 +425,12 @@ export default function AddAircraftPage({
                 <option value="Other">Other</option>
               </optgroup>
             </select>
+            <FieldError message={validationErrors["aircraft-engine-type"]} />
           </div>
-
           <div id="aircraft-engines-field" className="aircraft-detail-field">
             <label className="aircraft-detail-label" htmlFor="aircraft-engines">
               Number of Engines
             </label>
-
             <input
               id="aircraft-engines"
               className="aircraft-detail-input"
@@ -433,10 +438,10 @@ export default function AddAircraftPage({
               min="0"
               max="12"
               value={addAircraftEngineCountInput}
-              onChange={handleInputChange(setAddAircraftEngineCountInput)}
+              onChange={handleFieldChange(setAddAircraftEngineCountInput)}
             />
+            <FieldError message={validationErrors["aircraft-engines"]} />
           </div>
-
           <div id="aircraft-max-speed-field" className="aircraft-detail-field">
             <label
               className="aircraft-detail-label"
@@ -444,42 +449,79 @@ export default function AddAircraftPage({
             >
               Max Speed (km/h)
             </label>
-
             <input
               id="aircraft-max-speed"
               className="aircraft-detail-input"
               type="number"
-              min="500"
+              min="1"
               max="10000"
               value={addAircraftVMAXinput}
-              onChange={(event) =>
-                setAddAircraftVMAXInput(Number(event.target.value))
-              }
+              onChange={handleMaxSpeedChange}
             />
+            <FieldError message={validationErrors["aircraft-max-speed"]} />
           </div>
-
           <div id="aircraft-stealth-field" className="aircraft-detail-field">
             <label className="aircraft-detail-label" htmlFor="aircraft-stealth">
               Stealth
             </label>
-
             <label id="aircraft-stealth-container">
               <input
                 id="aircraft-stealth"
                 type="checkbox"
                 checked={addAircraftStealthInput}
-                onChange={(event) =>
-                  setAddAircraftStealthInput(event.target.checked)
-                }
+                onChange={handleStealthChange}
               />
               Stealth Aircraft
             </label>
           </div>
         </div>
       </div>
-      <div id="add-aircraft-form-image-container"></div>
+      <div id="add-aircraft-form-image-container">
+        <div id="aircraft-image-field" className="aircraft-detail-field">
+          <label className="aircraft-detail-label" htmlFor="aircraft-image">
+            Aircraft Image
+          </label>
+          <p className="aircraft-image-help">
+            Choose a PNG, JPG, WebP or GIF file (maximum 5 MB).
+          </p>
+          <input
+            id="aircraft-image"
+            className="aircraft-image-input"
+            type="file"
+            accept="image/png,image/jpeg,image/webp,image/gif"
+            ref={imageFileInputRef}
+            onChange={handleImageChange}
+          />
+          <FieldError message={validationErrors["aircraft-image"]} />
+          {isImageLoading && (
+            <p className="aircraft-image-loading" role="status">
+              Loading image...
+            </p>
+          )}
+          {addAircraftImageInput && !isImageLoading && (
+            <div className="aircraft-image-preview-container">
+              <img
+                src={addAircraftImageInput}
+                alt="New aircraft preview"
+                className="aircraft-image-preview"
+              />
+              <button
+                type="button"
+                onClick={handleRemoveImage}
+                className="aircraft-remove-image-button"
+              >
+                Remove image
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
       <div id="add-aircraft-form-button-container">
-        <button type="button" onClick={handleAddAircraft}>
+        <button
+          type="button"
+          onClick={handleAddAircraft}
+          disabled={isImageLoading}
+        >
           Add Aircraft
         </button>
       </div>

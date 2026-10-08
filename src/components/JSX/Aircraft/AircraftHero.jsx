@@ -1,3 +1,5 @@
+import { closeAircraftHero } from "../../../handlers/aircraftHandlers.js";
+
 export default function AircraftHero({ setCurrentOpenAircraftHero, ...props }) {
   return (
     <>
@@ -14,7 +16,7 @@ export default function AircraftHero({ setCurrentOpenAircraftHero, ...props }) {
               type="button"
               id="overlay-aircraft-hero-close"
               aria-label="Close aircraft details"
-              onClick={() => setCurrentOpenAircraftHero(0)}
+              onClick={() => closeAircraftHero(setCurrentOpenAircraftHero)}
             >
               ×
             </button>

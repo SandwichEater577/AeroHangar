@@ -1,10 +1,7 @@
 import { AeroHangarProfile } from "../../data/LayoutData.js";
+import { handleLogin } from "../../handlers/aircraftHandlers.js";
 
 export default function LoginPage({ setIsLoggedIn }) {
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
   return (
     <div className="login-page">
       <div className="welcome-container">
@@ -21,7 +18,11 @@ export default function LoginPage({ setIsLoggedIn }) {
 
         <div className="login-user-name">AeroHangar</div>
 
-        <button className="login-button" type="button" onClick={handleLogin}>
+        <button
+          className="login-button"
+          type="button"
+          onClick={() => handleLogin(setIsLoggedIn)}
+        >
           Log in
         </button>
       </div>

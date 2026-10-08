@@ -1,3 +1,5 @@
+import { handleAircraftLike, openAircraftHero } from "../../../handlers/aircraftHandlers.js";
+
 export default function AircraftCard({
   setCurrentOpenAircraftHero,
   jet,
@@ -6,26 +8,11 @@ export default function AircraftCard({
 }) {
   const isLiked = likedList.includes(jet.id);
 
-  function handleLike(event) {
-    event.stopPropagation();
-    const nextIsLiked = !isLiked;
-
-    setLikedList((prevLikedList) => {
-      if (nextIsLiked) {
-        return prevLikedList.includes(jet.id)
-          ? prevLikedList
-          : [...prevLikedList, jet.id];
-      }
-
-      return prevLikedList.filter((likedJetId) => likedJetId !== jet.id);
-    });
-  }
-
   return (
     <div
       className="aircraft-card"
       style={{ backgroundImage: `url(${jet.png})` }}
-      onClick={() => setCurrentOpenAircraftHero(jet.id)}
+      onClick={() => openAircraftHero(jet.id, setCurrentOpenAircraftHero)}
     >
       <div className="jet-name-div">
         <div className="jet-name">{jet.name}</div>
@@ -38,7 +25,9 @@ export default function AircraftCard({
           type="button"
           aria-label="Like aircraft"
           aria-pressed={isLiked}
-          onClick={handleLike}
+          onClick={(event) =>
+            handleAircraftLike(event, jet.id, isLiked, setLikedList)
+          }
         >
           <svg viewBox="0 0 25 25" width="39" height="38" aria-hidden="true">
             <path

@@ -3,6 +3,7 @@ import Main from "./components/JSX/MainPage.jsx";
 import { useState } from "react";
 import { jets } from "./data/LayoutData.js";
 import LoginPage from "./components/JSX/LoginPage.jsx";
+import { createAircraftStateHandlers } from "./handlers/aircraftHandlers.js";
 import "./components/CSS/Main.css";
 import "./components/CSS/Header.css";
 import "./components/CSS/Profile.css";
@@ -13,10 +14,10 @@ import "./components/CSS/AddAircraft.css";
 
 export default function App() {
   const [currentOpenAircraftHero, setCurrentOpenAircraftHero] = useState(0);
-  const [currentActivePage, setCurrentActivePage] = useState("add-aircraft");
+  const [currentActivePage, setCurrentActivePage] = useState("aircraft");
   const [currentAircraftPage, setCurrentAircraftPage] = useState("1");
   const [currentProfilePage, setCurrentProfilePage] = useState("1");
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [currentLikeColor, setCurrentLikeColor] = useState("#ffffff");
   const [likedList, setLikedList] = useState([]);
   const [aircraft, setAircraft] = useState(jets);
@@ -39,42 +40,14 @@ export default function App() {
     useState("");
   const [addAircraftVMAXinput, setAddAircraftVMAXInput] = useState(0);
   const [addAircraftStealthInput, setAddAircraftStealthInput] = useState(false);
+  const [addAircraftImageInput, setAddAircraftImageInput] = useState("");
 
-  function addAircraft(newAircraft) {
-    setAircraft((currentAircraft) => [...currentAircraft, newAircraft]);
-    setNewAircraftList((currentNewAircraftList) => {
-      const updatedAircraftList = [...currentNewAircraftList, newAircraft];
-      return updatedAircraftList;
+  const { addAircraft, editAircraft, deleteAircraft } =
+    createAircraftStateHandlers({
+      setAircraft,
+      setNewAircraftList,
+      setLikedList,
     });
-  }
-
-  function editAircraft(editedAircraft) {
-    setAircraft((currentAircraft) =>
-      currentAircraft.map((jet) =>
-        jet.id === editedAircraft.id ? editedAircraft : jet,
-      ),
-    );
-
-    setNewAircraftList((currentNewAircraftList) =>
-      currentNewAircraftList.map((jet) =>
-        jet.id === editedAircraft.id ? editedAircraft : jet,
-      ),
-    );
-  }
-
-  function deleteAircraft(id) {
-    setAircraft((currentAircraft) =>
-      currentAircraft.filter((jet) => jet.id !== id),
-    );
-
-    setLikedList((currentLikedList) =>
-      currentLikedList.filter((jetId) => jetId !== id),
-    );
-
-    setNewAircraftList((currentNewAircraftList) =>
-      currentNewAircraftList.filter((jet) => jet.id !== id),
-    );
-  }
 
   return (
     <>
@@ -88,6 +61,8 @@ export default function App() {
             />
 
             <Main
+              addAircraftImageInput={addAircraftImageInput}
+              setAddAircraftImageInput={setAddAircraftImageInput}
               newAircraftList={newAircraftList}
               setNewAircraftList={setNewAircraftList}
               addAircraftNameInput={addAircraftNameInput}

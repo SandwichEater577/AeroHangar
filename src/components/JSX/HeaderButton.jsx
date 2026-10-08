@@ -1,3 +1,5 @@
+import { handleHeaderNavigation } from "../../handlers/aircraftHandlers.js";
+
 export default function HeaderButton({
   element,
   currentPage,
@@ -9,14 +11,14 @@ export default function HeaderButton({
       className={`main-header-button ${currentPage === element.name ? "active-page-button" : ""}`}
       id={`main-header-${element.name}`}
       key={element.name}
-      onClick={() => {
-        if (currentPage === "profile" && element.name !== "profile") {
-          setCurrentProfilePage("1");
-          setCurrentPage(element.name);
-        } else if (currentPage !== element.name) {
-          setCurrentPage(element.name);
-        }
-      }}
+      onClick={() =>
+        handleHeaderNavigation(
+          element.name,
+          currentPage,
+          setCurrentPage,
+          setCurrentProfilePage,
+        )
+      }
     >
       {element.text}
     </button>

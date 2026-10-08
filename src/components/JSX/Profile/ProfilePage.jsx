@@ -3,11 +3,13 @@ import ProfileUserPages from "./ProfileUserPages.jsx";
 
 export default function ProfilePage({
   newAircraftList,
-  setNewAircraftList,
   aircraft,
   currentProfilePage,
   setCurrentProfilePage,
   likedList,
+  setLikedList,
+  editAircraft,
+  deleteAircraft,
 }) {
   return (
     <div id="profile-page">
@@ -18,11 +20,13 @@ export default function ProfilePage({
       <section id="user-profile-main">
         <ProfileUserPages
           newAircraftList={newAircraftList}
-          setNewAircraftList={setNewAircraftList}
           aircraft={aircraft}
           currentProfilePage={currentProfilePage}
           setCurrentProfilePage={setCurrentProfilePage}
           likedList={likedList}
+          setLikedList={setLikedList}
+          editAircraft={editAircraft}
+          deleteAircraft={deleteAircraft}
         />
       </section>
     </div>

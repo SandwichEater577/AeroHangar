@@ -4,8 +4,11 @@ import AddAircraftPage from "./AddAircraft/AddAircraftPage.jsx";
 import ProfilePage from "./Profile/ProfilePage.jsx";
 import { Fragment } from "react";
 import AircraftHero from "./Aircraft/AircraftHero.jsx";
+import { findAircraftById } from "../../data/LayoutData.js";
 
 export default function Main({
+  addAircraftImageInput,
+  setAddAircraftImageInput,
   newAircraftList,
   setNewAircraftList,
   addAircraftNameInput,
@@ -48,11 +51,7 @@ export default function Main({
   currentOpenAircraftHero,
   setCurrentOpenAircraftHero,
 }) {
-  function handleAircraftHeroRequest(id, array) {
-    return array.find((element) => element.id === id);
-  }
-
-  const currentOpenAircraftHeroData = handleAircraftHeroRequest(
+  const currentOpenAircraftHeroData = findAircraftById(
     currentOpenAircraftHero,
     aircraft,
   );
@@ -86,6 +85,8 @@ export default function Main({
         [
           "add-aircraft",
           <AddAircraftPage
+            addAircraftImageInput={addAircraftImageInput}
+            setAddAircraftImageInput={setAddAircraftImageInput}
             aircraft={aircraft}
             addAircraft={addAircraft}
             addAircraftNameInput={addAircraftNameInput}
@@ -118,9 +119,11 @@ export default function Main({
           "profile",
           <ProfilePage
             newAircraftList={newAircraftList}
-            setNewAircraftList={setNewAircraftList}
             aircraft={aircraft}
             likedList={likedList}
+            setLikedList={setLikedList}
+            editAircraft={editAircraft}
+            deleteAircraft={deleteAircraft}
             currentProfilePage={currentProfilePage}
             setCurrentProfilePage={setCurrentProfilePage}
           />,

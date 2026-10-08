@@ -1,11 +1,72 @@
 import "../../CSS/ProfilePages.css";
+import {
+  handleAircraftLike,
+  handleDeleteAircraft,
+  handleEditAircraft,
+} from "../../../handlers/aircraftHandlers.js";
+
+function ProfileAircraftTile({
+  jet,
+  isLiked,
+  setLikedList,
+  canEdit,
+  editAircraft,
+  deleteAircraft,
+}) {
+  return (
+    <article
+      className="profile-aircraft-tile"
+      style={{ backgroundImage: `url(${jet.png})` }}
+    >
+      <div className="profile-aircraft-heading">
+        <h3 className="profile-aircraft-name">{jet.name}</h3>
+
+        <p className="profile-aircraft-alias">{`Aka: "${jet.nickname}"`}</p>
+
+        <div className="profile-aircraft-actions">
+          <button
+            type="button"
+            className="profile-aircraft-action-button"
+            aria-pressed={isLiked}
+            onClick={(event) =>
+              handleAircraftLike(event, jet.id, isLiked, setLikedList)
+            }
+          >
+            {isLiked ? "Unlike" : "Like"}
+          </button>
+
+          {canEdit && (
+            <>
+              <button
+                type="button"
+                className="profile-aircraft-action-button"
+                onClick={() => handleEditAircraft(jet, editAircraft)}
+              >
+                Edit
+              </button>
+              <button
+                type="button"
+                className="profile-aircraft-action-button profile-aircraft-delete-button"
+                onClick={() => handleDeleteAircraft(jet.id, deleteAircraft)}
+              >
+                Delete
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+}
 
 export default function ProfileMainAllPages({
   newAircraftList,
-  setNewAircraftList,
   aircraft,
   currentProfilePage,
   likedList = [],
+  setLikedList,
+  editAircraft,
+  deleteAircraft,
 }) {
   let profilePage;
 
@@ -15,7 +76,51 @@ export default function ProfileMainAllPages({
 
   switch (currentProfilePage) {
     case "1":
-      profilePage = <div id="profile-page-all">All</div>;
+      profilePage = (
+        <>
+          <section id="profile-aircraft-panel">
+            <h2 id="profile-aircraft-title">My Aircraft: </h2>
+
+            {newAircraftList.length > 0 ? (
+              <div id="profile-aircraft-grid">
+                {newAircraftList.map((jet) => (
+                  <ProfileAircraftTile
+                    key={jet.id}
+                    jet={jet}
+                    isLiked={likedList.includes(jet.id)}
+                    setLikedList={setLikedList}
+                    canEdit
+                    editAircraft={editAircraft}
+                    deleteAircraft={deleteAircraft}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="profile-aircraft-empty-message">No aircraft yet.</p>
+            )}
+          </section>
+          <section id="profile-aircraft-panel">
+            <h2 id="profile-aircraft-title">Liked Aircraft:</h2>
+
+            {likedJets.length > 0 ? (
+              <div id="profile-aircraft-grid">
+                {likedJets.map((jet) => (
+                  <ProfileAircraftTile
+                    key={jet.id}
+                    jet={jet}
+                    isLiked={true}
+                    setLikedList={setLikedList}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="profile-aircraft-empty-message">
+                No liked aircraft yet.
+              </p>
+            )}
+          </section>
+        </>
+      );
       break;
 
     case "2":
@@ -26,21 +131,12 @@ export default function ProfileMainAllPages({
           {likedJets.length > 0 ? (
             <div id="profile-aircraft-grid">
               {likedJets.map((jet) => (
-                <article
-                  className="profile-aircraft-tile"
+                <ProfileAircraftTile
                   key={jet.id}
-                  style={{
-                    backgroundImage: `url(${jet.png})`,
-                  }}
-                >
-                  <div className="profile-aircraft-heading">
-                    <h3 className="profile-aircraft-name">{jet.name}</h3>
-
-                    <p className="profile-aircraft-alias">
-                      {`Aka: "${jet.nickname}"`}
-                    </p>
-                  </div>
-                </article>
+                  jet={jet}
+                  isLiked={true}
+                  setLikedList={setLikedList}
+                />
               ))}
             </div>
           ) : (
@@ -60,21 +156,15 @@ export default function ProfileMainAllPages({
           {newAircraftList.length > 0 ? (
             <div id="profile-aircraft-grid">
               {newAircraftList.map((jet) => (
-                <article
-                  className="profile-aircraft-tile"
+                <ProfileAircraftTile
                   key={jet.id}
-                  style={{
-                    backgroundImage: `url(${jet.png})`,
-                  }}
-                >
-                  <div className="profile-aircraft-heading">
-                    <h3 className="profile-aircraft-name">{jet.name}</h3>
-
-                    <p className="profile-aircraft-alias">
-                      {`Aka: "${jet.nickname}"`}
-                    </p>
-                  </div>
-                </article>
+                  jet={jet}
+                  isLiked={likedList.includes(jet.id)}
+                  setLikedList={setLikedList}
+                  canEdit
+                  editAircraft={editAircraft}
+                  deleteAircraft={deleteAircraft}
+                />
               ))}
             </div>
           ) : (

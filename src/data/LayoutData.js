@@ -965,9 +965,26 @@ export const jets = [
   },
 ];
 
-export const aircraftPerPage = 6;
+export const aircraftPerPage = 4;
+
+export function findAircraftById(id, aircraft) {
+  return aircraft.find((aircraftItem) => aircraftItem.id === id);
+}
+
+export function getAircraftPageItems(aircraft, currentPage) {
+  const startIndex = (currentPage - 1) * aircraftPerPage;
+  return aircraft.slice(startIndex, startIndex + aircraftPerPage);
+}
+
+export function getTotalAircraftPages(aircraft) {
+  return Math.ceil(aircraft.length / aircraftPerPage);
+}
+
+export function getPageNumbers(totalPages) {
+  return Array.from({ length: totalPages }, (_, index) => index + 1);
+}
 
 export const whenNextAircraftShouldCreateNewPage = Array.from(
-  { length: Math.ceil(jets.length / aircraftPerPage) },
-  (_, index) => ({ value: (index + 1) * aircraftPerPage }),
+  { length: getTotalAircraftPages(jets) },
+  (_, index) => ({ value: aircraftPerPage * (index + 1) }),
 );
