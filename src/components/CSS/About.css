@@ -1,0 +1,36 @@
+.about-page {
+  max-width: 700px;
+  padding: 10px 0;
+}
+
+.about-page h1 {
+  margin-bottom: 16px;
+  font-size: 1.8rem;
+}
+
+.about-page p {
+  margin: 0 0 12px;
+}
+
+.about-page > button {
+  margin-top: 12px;
+  padding: 9px 16px;
+  border: 1px solid #5d7288;
+  background: #1a304e;
+  color: #f5f6fa;
+  font: inherit;
+  cursor: pointer;
+}
+
+.about-page > button:hover {
+  border-color: #f5b32c;
+}
+
+.about-page .dialog-content p {
+  margin: 0 0 6px;
+}
+
+.about-page .dialog-content small {
+  display: block;
+  margin-top: 12px;
+}

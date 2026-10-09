@@ -10,6 +10,8 @@ export default function ProfilePage({
   setLikedList,
   editAircraft,
   deleteAircraft,
+  activeDeleteAircraftId,
+  setActiveDeleteAircraftId,
 }) {
   return (
     <div id="profile-page">
@@ -27,6 +29,8 @@ export default function ProfilePage({
           setLikedList={setLikedList}
           editAircraft={editAircraft}
           deleteAircraft={deleteAircraft}
+          activeDeleteAircraftId={activeDeleteAircraftId}
+          setActiveDeleteAircraftId={setActiveDeleteAircraftId}
         />
       </section>
     </div>

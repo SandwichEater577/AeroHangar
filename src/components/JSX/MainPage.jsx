@@ -50,6 +50,26 @@ export default function Main({
   setCurrentAircraftPage,
   currentOpenAircraftHero,
   setCurrentOpenAircraftHero,
+  showStats,
+  setShowStats,
+  search,
+  setSearch,
+  country,
+  setCountry,
+  role,
+  setRole,
+  status,
+  setStatus,
+  stealth,
+  setStealth,
+  sortBy,
+  setSortBy,
+  validationErrors,
+  setValidationErrors,
+  isImageLoading,
+  setIsImageLoading,
+  activeDeleteAircraftId,
+  setActiveDeleteAircraftId,
 }) {
   const currentOpenAircraftHeroData = findAircraftById(
     currentOpenAircraftHero,
@@ -79,9 +99,24 @@ export default function Main({
             currentAircraftPage={currentAircraftPage}
             setCurrentAircraftPage={setCurrentAircraftPage}
             setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}
+            search={search}
+            setSearch={setSearch}
+            country={country}
+            setCountry={setCountry}
+            role={role}
+            setRole={setRole}
+            status={status}
+            setStatus={setStatus}
+            stealth={stealth}
+            setStealth={setStealth}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
           />,
         ],
-        ["about", <AboutPage likedList={likedList} />],
+        [
+          "about",
+          <AboutPage showStats={showStats} setShowStats={setShowStats} />,
+        ],
         [
           "add-aircraft",
           <AddAircraftPage
@@ -113,6 +148,10 @@ export default function Main({
             setAddAircraftVMAXInput={setAddAircraftVMAXInput}
             addAircraftStealthInput={addAircraftStealthInput}
             setAddAircraftStealthInput={setAddAircraftStealthInput}
+            validationErrors={validationErrors}
+            setValidationErrors={setValidationErrors}
+            isImageLoading={isImageLoading}
+            setIsImageLoading={setIsImageLoading}
           />,
         ],
         [
@@ -126,6 +165,8 @@ export default function Main({
             deleteAircraft={deleteAircraft}
             currentProfilePage={currentProfilePage}
             setCurrentProfilePage={setCurrentProfilePage}
+            activeDeleteAircraftId={activeDeleteAircraftId}
+            setActiveDeleteAircraftId={setActiveDeleteAircraftId}
           />,
         ],
       ].map(([page, content]) => (

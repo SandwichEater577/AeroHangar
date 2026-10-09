@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { createAddAircraftHandlers } from "../../../handlers/aircraftHandlers.js";
 
 function FieldError({ message }) {
@@ -36,12 +36,15 @@ export default function AddAircraftPage({
   setAddAircraftVMAXInput,
   addAircraftStealthInput,
   setAddAircraftStealthInput,
+  addAircraftImageInput,
+  setAddAircraftImageInput,
+  validationErrors,
+  setValidationErrors,
+  isImageLoading,
+  setIsImageLoading,
   aircraft,
   addAircraft,
 }) {
-  const [addAircraftImageInput, setAddAircraftImageInput] = useState("");
-  const [validationErrors, setValidationErrors] = useState({});
-  const [isImageLoading, setIsImageLoading] = useState(false);
   const imageFileInputRef = useRef(null);
   const imageReaderRef = useRef(null);
 

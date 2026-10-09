@@ -1,24 +1,14 @@
-# AeroHangar
+# _**AeroHangar**_
 
-A simple aircraft explorer built with React and Vite. Browse military aircraft, view their specifications, and keep a list of favorites.
+A class project by **NesTea**.
 
-- Aircraft catalog with images and details
-- Add, edit, and remove aircraft
-- Profile and favorites pages
+A **Fake** aircraft shop, school project, mostly based on 'Warstock Cache & Carry' from GTA V.
 
-## Run locally
+## Run
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Build
-
-```bash
-npm run build
-npm run preview
-```
-
-Work in progress. Aircraft changes and favorites are stored in memory and reset on refresh.
-# NesChat
+No DB (Data Base), meaning that theres no permanent changes via the user access.

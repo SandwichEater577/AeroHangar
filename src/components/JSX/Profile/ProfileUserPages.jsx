@@ -11,6 +11,8 @@ export default function ProfileUserPages({
   setLikedList,
   editAircraft,
   deleteAircraft,
+  activeDeleteAircraftId,
+  setActiveDeleteAircraftId,
 }) {
   return (
     <>
@@ -26,9 +28,7 @@ export default function ProfileUserPages({
               }
               key={item.name}
               id={`user-profile-main-header-${item.name}`}
-              onClick={() =>
-                changeProfilePage(item.id, setCurrentProfilePage)
-              }
+              onClick={() => changeProfilePage(item.id, setCurrentProfilePage)}
             >
               {item.text}
             </button>
@@ -44,6 +44,8 @@ export default function ProfileUserPages({
             setLikedList={setLikedList}
             editAircraft={editAircraft}
             deleteAircraft={deleteAircraft}
+            activeDeleteAircraftId={activeDeleteAircraftId}
+            setActiveDeleteAircraftId={setActiveDeleteAircraftId}
           />
         </div>
       </div>

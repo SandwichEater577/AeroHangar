@@ -22,6 +22,16 @@ export default function App() {
   const [likedList, setLikedList] = useState([]);
   const [aircraft, setAircraft] = useState(jets);
   const [newAircraftList, setNewAircraftList] = useState([]);
+  const [showStats, setShowStats] = useState(false);
+  const [search, setSearch] = useState("");
+  const [country, setCountry] = useState("all");
+  const [role, setRole] = useState("all");
+  const [status, setStatus] = useState("all");
+  const [stealth, setStealth] = useState("all");
+  const [sortBy, setSortBy] = useState("name-asc");
+  const [validationErrors, setValidationErrors] = useState({});
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const [activeDeleteAircraftId, setActiveDeleteAircraftId] = useState(null);
 
   // ADD AIRCRAFT INPUT STATES
   const [addAircraftNameInput, setAddAircraftNameInput] = useState("");
@@ -104,6 +114,26 @@ export default function App() {
               setCurrentAircraftPage={setCurrentAircraftPage}
               currentOpenAircraftHero={currentOpenAircraftHero}
               setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}
+              showStats={showStats}
+              setShowStats={setShowStats}
+              search={search}
+              setSearch={setSearch}
+              country={country}
+              setCountry={setCountry}
+              role={role}
+              setRole={setRole}
+              status={status}
+              setStatus={setStatus}
+              stealth={stealth}
+              setStealth={setStealth}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              validationErrors={validationErrors}
+              setValidationErrors={setValidationErrors}
+              isImageLoading={isImageLoading}
+              setIsImageLoading={setIsImageLoading}
+              activeDeleteAircraftId={activeDeleteAircraftId}
+              setActiveDeleteAircraftId={setActiveDeleteAircraftId}
             />
           </>
         ) : (

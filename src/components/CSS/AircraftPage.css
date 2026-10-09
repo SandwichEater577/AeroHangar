@@ -1,404 +1,108 @@
-/* Aircraft catalog: toolbar, filters and pagination */
 .aircraft-catalog {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   height: 100%;
-  min-height: 660px;
-  color: #f5f6fa;
+  min-height: 0;
 }
 
-.aircraft-catalog-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-
-.aircraft-catalog-eyebrow {
-  display: block;
-  margin-bottom: 3px;
-  color: #f5b32c;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-}
-
-.aircraft-catalog-heading h1 {
+.aircraft-catalog h1 {
+  font-size: 1.6rem;
   margin: 0;
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
-  font-weight: 700;
-  line-height: 1.15;
 }
 
-.aircraft-catalog-heading p {
-  margin: 4px 0 0;
+.aircraft-controls,
+.aircraft-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.aircraft-controls input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.aircraft-controls input,
+.aircraft-controls select,
+.aircraft-filters select,
+.aircraft-filters button {
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #2b3e54;
+  background: #051124;
+  color: #f5f6fa;
+  font: inherit;
+}
+
+.aircraft-filters select {
+  flex: 1;
+  min-width: 125px;
+}
+
+.aircraft-filters button,
+.aircraft-pagination button {
+  cursor: pointer;
+}
+
+.aircraft-count {
+  margin: 0;
   color: #a4b4c7;
   font-size: 0.85rem;
 }
 
-.aircraft-catalog-total {
-  flex-shrink: 0;
-  padding: 7px 12px;
-  border: 2px solid #2b3e54;
-  color: #f5b32c;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-}
-
-.aircraft-catalog-toolbar {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 240px;
-  gap: 12px;
-}
-
-.aircraft-catalog-search {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-  padding: 0 14px;
-  border: 2px solid #2b3e54;
-  background: #051124;
-  color: #a4b4c7;
-}
-
-.aircraft-catalog-search:focus-within {
-  border-color: #f5b32c;
-}
-
-.aircraft-catalog-search svg {
-  flex-shrink: 0;
-  width: 19px;
-  height: 19px;
-}
-
-.aircraft-catalog-search input {
-  width: 100%;
-  height: 45px;
-  min-width: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: #f5f6fa;
-  font: inherit;
-  font-size: 0.88rem;
-}
-
-.aircraft-catalog-search input::placeholder {
-  color: #7589a1;
-}
-
-.aircraft-catalog-sort {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 10px;
-  border: 2px solid #2b3e54;
-  background: #051124;
-}
-
-.aircraft-catalog-sort > span {
-  flex-shrink: 0;
-  color: #a4b4c7;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.aircraft-catalog-sort select {
-  width: 100%;
-  height: 45px;
-  min-width: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: #f5f6fa;
-  font: inherit;
-  font-size: 0.84rem;
-  cursor: pointer;
-}
-
-.aircraft-catalog-sort:focus-within {
-  border-color: #f5b32c;
-}
-
-.aircraft-catalog-sort option,
-.aircraft-catalog-filter-grid option {
-  background: #101e31;
-  color: #f5f6fa;
-}
-
-.aircraft-catalog-filters {
-  padding: 13px 15px 15px;
-  border: 2px solid #2b3e54;
-  background: #101e31;
-}
-
-.aircraft-catalog-filters-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 11px;
-}
-
-.aircraft-catalog-filter-title {
-  color: #a4b4c7;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-}
-
-.aircraft-catalog-filters-top button {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #f5b32c;
-  font: inherit;
-  font-size: 0.77rem;
-  cursor: pointer;
-}
-
-.aircraft-catalog-filters-top button:disabled {
-  color: #5d7288;
-  cursor: default;
-}
-
-.aircraft-catalog-filters-top button:not(:disabled):hover {
-  text-decoration: underline;
-}
-
-.aircraft-catalog-filters-top button span {
-  margin-left: 4px;
-  font-size: 1.1rem;
-}
-
-.aircraft-catalog-filter-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.aircraft-catalog-filter-grid label {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  min-width: 0;
-}
-
-.aircraft-catalog-filter-grid label > span {
-  color: #a4b4c7;
-  font-size: 0.74rem;
-}
-
-.aircraft-catalog-filter-grid select {
-  width: 100%;
-  height: 38px;
-  padding: 0 9px;
-  border: 2px solid #2b3e54;
-  outline: 0;
-  background: #101e31;
-  color: #f5f6fa;
-  font: inherit;
-  font-size: 0.82rem;
-  cursor: pointer;
-}
-
-.aircraft-catalog-filter-grid select:focus {
-  border-color: #f5b32c;
-}
-
-.aircraft-catalog-results {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #a4b4c7;
-  font-size: 0.79rem;
-}
-
-.aircraft-catalog-results strong {
-  color: #f5f6fa;
-}
-
-.aircraft-catalog-results > span:last-child:not(:first-child) {
-  color: #f5b32c;
-}
-
-/* Overrides the old 95% grid height in Aircraft.css. */
 #main-aircraft .aircraft-catalog-grid {
   flex: 1;
   height: auto;
-  min-height: 340px;
+  min-height: 320px;
   grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 
-.aircraft-catalog-empty {
-  display: flex;
+.aircraft-no-results {
   flex: 1;
-  flex-direction: column;
+  padding: 30px 0;
+  color: #a4b4c7;
+}
+
+.aircraft-pagination {
+  display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 300px;
-  border: 2px dashed #2b3e54;
-  background: #051124;
-  text-align: center;
-}
-
-.aircraft-catalog-empty-icon {
-  color: #f5b32c;
-  font-size: 2.6rem;
-}
-
-.aircraft-catalog-empty h2 {
-  margin: 6px 0 3px;
-  font-size: 1.2rem;
-}
-
-.aircraft-catalog-empty p {
-  margin: 0 12px 14px;
-  color: #a4b4c7;
-  font-size: 0.87rem;
-}
-
-.aircraft-catalog-empty button {
-  padding: 9px 15px;
-  border: 2px solid #f5b32c;
-  background: transparent;
-  color: #f5b32c;
-  font: inherit;
-  cursor: pointer;
-}
-
-.aircraft-catalog-empty button:hover {
-  background: #f5b32c;
-  color: #101e31;
-}
-
-.aircraft-catalog-pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 6px;
   flex-wrap: wrap;
-  gap: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #2b3e54;
 }
 
-.aircraft-catalog-pagination-info {
-  color: #a4b4c7;
-  font-size: 0.78rem;
-}
-
-.aircraft-catalog-pagination-info strong {
-  color: #f5f6fa;
-  font-weight: 600;
-}
-
-.aircraft-catalog-page-controls {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.aircraft-catalog-page-controls button {
-  height: 35px;
-  border: 2px solid transparent;
+.aircraft-pagination button {
+  min-width: 36px;
+  height: 34px;
+  padding: 0 9px;
+  border: 1px solid #2b3e54;
   background: #1a304e;
   color: #f5f6fa;
   font: inherit;
-  font-size: 0.82rem;
-  cursor: pointer;
 }
 
-.aircraft-catalog-page-controls button:hover:not(:disabled):not(.is-active) {
-  border-bottom-color: #f5b32c;
-  background: #f5b32c;
-  color: #101e31;
+.aircraft-pagination button.active {
+  border-color: #f5b32c;
 }
 
-.aircraft-catalog-page-controls button:focus-visible,
-.aircraft-catalog-empty button:focus-visible,
-.aircraft-catalog-filters-top button:focus-visible {
-  outline: 2px solid #f5b32c;
-  outline-offset: 2px;
-}
-
-.aircraft-catalog-page-number {
-  min-width: 35px;
-  padding: 0 7px;
-}
-
-.aircraft-catalog-page-controls .is-active {
-  border-bottom-color: #f5b32c;
-}
-
-.aircraft-catalog-page-arrow {
-  padding: 0 11px;
-}
-
-.aircraft-catalog-page-arrow:disabled {
-  opacity: 0.35;
+.aircraft-pagination button:disabled {
+  opacity: 0.4;
   cursor: default;
 }
 
-.aircraft-catalog-page-ellipsis {
-  min-width: 20px;
-  color: #5d7288;
-  text-align: center;
+.aircraft-pagination button:hover:not(:disabled),
+.aircraft-filters button:hover {
+  border-color: #f5b32c;
 }
 
-@media (max-width: 800px) {
-  .aircraft-catalog-filter-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .aircraft-catalog {
     height: auto;
-    min-height: 0;
-  }
-
-  .aircraft-catalog-heading {
-    align-items: flex-start;
-  }
-
-  .aircraft-catalog-toolbar {
-    grid-template-columns: 1fr;
   }
 
   #main-aircraft .aircraft-catalog-grid {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, minmax(180px, 1fr));
-    min-height: 780px;
-  }
-
-  .aircraft-catalog-pagination {
-    justify-content: center;
-  }
-
-  .aircraft-catalog-pagination-info {
-    width: 100%;
-    text-align: center;
-  }
-}
-
-@media (max-width: 390px) {
-  .aircraft-catalog-filter-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .aircraft-catalog-total {
-    display: none;
-  }
-
-  .aircraft-catalog-page-controls {
-    gap: 3px;
-  }
-
-  .aircraft-catalog-page-controls button {
-    height: 32px;
-    font-size: 0.75rem;
   }
 }
