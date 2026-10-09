@@ -11,4 +11,4 @@ npm install
 npm run dev
 ```
 
-No DB (Data Base), meaning that theres no permanent changes via the user access.
+No DB (Data Base), meaning that theres no permanent changes via user access.
