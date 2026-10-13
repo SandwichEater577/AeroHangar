@@ -1,4 +1,7 @@
-import { handleAircraftLike, openAircraftHero } from "../../../handlers/aircraftHandlers.js";
+import {
+  handleAircraftLike,
+  openAircraftHero,
+} from "../../../handlers/aircraftHandlers.js";
 
 export default function AircraftCard({
   setCurrentOpenAircraftHero,
@@ -23,7 +26,7 @@ export default function AircraftCard({
         <button
           className="aircraft-like-button"
           type="button"
-          aria-label="Like aircraft"
+          aria-label={isLiked ? "Unlike aircraft" : "Like aircraft"}
           aria-pressed={isLiked}
           onClick={(event) =>
             handleAircraftLike(event, jet.id, isLiked, setLikedList)
@@ -32,7 +35,7 @@ export default function AircraftCard({
           <svg viewBox="0 0 25 25" width="39" height="38" aria-hidden="true">
             <path
               d="M12 21.23 3.16 12.39a5.5 5.5 0 0 1 7.78-7.78L12 5.67l1.06-1.06a5.5 5.5 0 0 1 7.78 7.78L12 21.23Z"
-              fill={likedList.includes(jet.id) ? "#ff0000" : "#ffffff"}
+              fill={isLiked ? "#ff0000" : "#ffffff"}
             />
           </svg>
         </button>

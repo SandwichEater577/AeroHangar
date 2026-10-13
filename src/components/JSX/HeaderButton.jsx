@@ -6,11 +6,13 @@ export default function HeaderButton({
   setCurrentPage,
   setCurrentProfilePage,
 }) {
+  const isActive = currentPage === element.name;
+
   return (
     <button
-      className={`main-header-button ${currentPage === element.name ? "active-page-button" : ""}`}
+      type="button"
+      className={`main-header-button ${isActive ? "active-page-button" : ""}`}
       id={`main-header-${element.name}`}
-      key={element.name}
       onClick={() =>
         handleHeaderNavigation(
           element.name,

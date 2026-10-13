@@ -1,39 +1,57 @@
+/* ============================================================
+   Main.css — page content in the document's normal scroll flow.
+   ============================================================ */
+
 #main-container,
 #main-container-no-top-padding {
-  flex: 1;
-  min-height: 0;
+  flex: 1 0 auto;
+  min-width: 0;
   width: 100%;
-
-  overflow-y: auto;
-
-  background-color: #101e31;
+  background-color: var(--color-surface);
 }
 
 #main-container {
-  padding: clamp(1rem, 2vw, 1.75rem);
+  padding: var(--space-6);
 }
-
 #main-container-no-top-padding {
-  padding: 0 clamp(1rem, 2vw, 1.75rem) clamp(1rem, 2vw, 1.75rem);
+  padding: 0 var(--space-6) var(--space-6);
 }
 
 .main-content {
-  height: 100%;
-  width: min(100%, 1200px);
-
-  margin-inline: auto;
-
-  color: #f5f6fa;
-  line-height: 1.5;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--color-text);
+  line-height: var(--leading-relaxed);
 }
 
 #main-aircraft {
-  height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: calc(95vh - 120px);
+  min-height: calc(95dvh - 120px);
 }
 
+/* Blur applied when the aircraft hero overlay is open. */
 .should-blur {
-  filter: blur(5px);
+  opacity: 0.7;
   pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  #main-container {
+    padding: var(--space-4);
+  }
+  #main-container-no-top-padding {
+    padding: 0 var(--space-4) var(--space-4);
+  }
+}
+
+@media (max-width: 600px) {
+  #main-container {
+    padding: var(--space-3);
+  }
+  #main-container-no-top-padding {
+    padding: 0 var(--space-3) var(--space-3);
+  }
 }

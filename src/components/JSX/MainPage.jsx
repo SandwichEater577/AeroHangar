@@ -1,57 +1,33 @@
 import AircraftPage from "./Aircraft/AircraftPage.jsx";
+import AircraftHero from "./Aircraft/AircraftHero.jsx";
 import AboutPage from "./About/AboutPage.jsx";
 import AddAircraftPage from "./AddAircraft/AddAircraftPage.jsx";
 import ProfilePage from "./Profile/ProfilePage.jsx";
-import { Fragment } from "react";
-import AircraftHero from "./Aircraft/AircraftHero.jsx";
 import { findAircraftById } from "../../data/LayoutData.js";
 
 export default function Main({
-  addAircraftImageInput,
-  setAddAircraftImageInput,
+  aircraft,
   newAircraftList,
   setNewAircraftList,
-  addAircraftNameInput,
-  setAddAircraftNameInput,
-  addAircraftNicknameInput,
-  setAddAircraftNicknameInput,
-  addAircraftManufacturerInput,
-  setAddAircraftManufacturerInput,
-  addAircraftCountryInput,
-  setAddAircraftCountryInput,
-  addAircraftRoleInput,
-  setAddAircraftRoleInput,
-  addAircraftTypeInput,
-  setAddAircraftTypeInput,
-  addAircraftFirstFlightInput,
-  setAddAircraftFirstFlightInput,
-  addAircraftStatusInput,
-  setAddAircraftStatusInput,
-  addAircraftEngineTypeInput,
-  setAddAircraftEngineTypeInput,
-  addAircraftEngineCountInput,
-  setAddAircraftEngineCountInput,
-  addAircraftVMAXinput,
-  setAddAircraftVMAXInput,
-  addAircraftStealthInput,
-  setAddAircraftStealthInput,
-  aircraft,
   likedList,
-  addAircraft,
-  currentPage,
-  editAircraft,
   setLikedList,
+
+  addAircraft,
+  editAircraft,
   deleteAircraft,
-  currentLikeColor,
-  currentProfilePage,
-  currentAircraftPage,
-  setCurrentLikeColor,
-  setCurrentProfilePage,
-  setCurrentAircraftPage,
+
+  currentPage,
+  setCurrentPage,
   currentOpenAircraftHero,
   setCurrentOpenAircraftHero,
-  showStats,
-  setShowStats,
+  currentAircraftPage,
+  setCurrentAircraftPage,
+  currentProfilePage,
+  setCurrentProfilePage,
+
+  currentLikeColor,
+  setCurrentLikeColor,
+
   search,
   setSearch,
   country,
@@ -64,129 +40,115 @@ export default function Main({
   setStealth,
   sortBy,
   setSortBy,
+
+  draft,
+  setDraft,
+  editingId,
+  openEditForm,
+  closeForm,
   validationErrors,
   setValidationErrors,
   isImageLoading,
   setIsImageLoading,
+
   activeDeleteAircraftId,
   setActiveDeleteAircraftId,
+
+  showStats,
+  setShowStats,
 }) {
-  const currentOpenAircraftHeroData = findAircraftById(
-    currentOpenAircraftHero,
-    aircraft,
-  );
+  // the full aircraft object for whichever hero is open (or undefined if none)
+  const openAircraft = findAircraftById(currentOpenAircraftHero, aircraft);
+
+  // when something is open, we blur the page behind it
+  const blurClass = currentOpenAircraftHero !== null ? "should-blur" : "";
 
   return (
     <>
-      {currentOpenAircraftHero !== 0 && (
+      {/* big overlay that shows one aircraft up close */}
+      {currentOpenAircraftHero !== null && (
         <AircraftHero
-          array={currentOpenAircraftHeroData}
+          aircraft={openAircraft}
           setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}
         />
       )}
 
-      {[
-        [
-          "aircraft",
-          <AircraftPage
-            aircraft={aircraft}
-            deleteAircraft={deleteAircraft}
-            editAircraft={editAircraft}
-            likedList={likedList}
-            setLikedList={setLikedList}
-            currentLikeColor={currentLikeColor}
-            setCurrentLikeColor={setCurrentLikeColor}
-            currentAircraftPage={currentAircraftPage}
-            setCurrentAircraftPage={setCurrentAircraftPage}
-            setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}
-            search={search}
-            setSearch={setSearch}
-            country={country}
-            setCountry={setCountry}
-            role={role}
-            setRole={setRole}
-            status={status}
-            setStatus={setStatus}
-            stealth={stealth}
-            setStealth={setStealth}
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-          />,
-        ],
-        [
-          "about",
-          <AboutPage showStats={showStats} setShowStats={setShowStats} />,
-        ],
-        [
-          "add-aircraft",
-          <AddAircraftPage
-            addAircraftImageInput={addAircraftImageInput}
-            setAddAircraftImageInput={setAddAircraftImageInput}
-            aircraft={aircraft}
-            addAircraft={addAircraft}
-            addAircraftNameInput={addAircraftNameInput}
-            setAddAircraftNameInput={setAddAircraftNameInput}
-            addAircraftNicknameInput={addAircraftNicknameInput}
-            setAddAircraftNicknameInput={setAddAircraftNicknameInput}
-            addAircraftManufacturerInput={addAircraftManufacturerInput}
-            setAddAircraftManufacturerInput={setAddAircraftManufacturerInput}
-            addAircraftCountryInput={addAircraftCountryInput}
-            setAddAircraftCountryInput={setAddAircraftCountryInput}
-            addAircraftRoleInput={addAircraftRoleInput}
-            setAddAircraftRoleInput={setAddAircraftRoleInput}
-            addAircraftTypeInput={addAircraftTypeInput}
-            setAddAircraftTypeInput={setAddAircraftTypeInput}
-            addAircraftFirstFlightInput={addAircraftFirstFlightInput}
-            setAddAircraftFirstFlightInput={setAddAircraftFirstFlightInput}
-            addAircraftStatusInput={addAircraftStatusInput}
-            setAddAircraftStatusInput={setAddAircraftStatusInput}
-            addAircraftEngineTypeInput={addAircraftEngineTypeInput}
-            setAddAircraftEngineTypeInput={setAddAircraftEngineTypeInput}
-            addAircraftEngineCountInput={addAircraftEngineCountInput}
-            setAddAircraftEngineCountInput={setAddAircraftEngineCountInput}
-            addAircraftVMAXinput={addAircraftVMAXinput}
-            setAddAircraftVMAXInput={setAddAircraftVMAXInput}
-            addAircraftStealthInput={addAircraftStealthInput}
-            setAddAircraftStealthInput={setAddAircraftStealthInput}
-            validationErrors={validationErrors}
-            setValidationErrors={setValidationErrors}
-            isImageLoading={isImageLoading}
-            setIsImageLoading={setIsImageLoading}
-          />,
-        ],
-        [
-          "profile",
-          <ProfilePage
-            newAircraftList={newAircraftList}
-            aircraft={aircraft}
-            likedList={likedList}
-            setLikedList={setLikedList}
-            editAircraft={editAircraft}
-            deleteAircraft={deleteAircraft}
-            currentProfilePage={currentProfilePage}
-            setCurrentProfilePage={setCurrentProfilePage}
-            activeDeleteAircraftId={activeDeleteAircraftId}
-            setActiveDeleteAircraftId={setActiveDeleteAircraftId}
-          />,
-        ],
-      ].map(([page, content]) => (
-        <Fragment key={page}>
-          {currentPage === page && (
-            <main
-              className={currentOpenAircraftHero !== 0 ? "should-blur" : null}
-              id={
-                page === "profile"
-                  ? "main-container-no-top-padding"
-                  : "main-container"
-              }
-            >
-              <div id={`main-${page}`} className="main-content">
-                {content}
-              </div>
-            </main>
-          )}
-        </Fragment>
-      ))}
+      {currentPage === "aircraft" && (
+        <main className={blurClass} id="main-container">
+          <div id="main-aircraft" className="main-content">
+            <AircraftPage
+              aircraft={aircraft}
+              likedList={likedList}
+              setLikedList={setLikedList}
+              currentLikeColor={currentLikeColor}
+              setCurrentLikeColor={setCurrentLikeColor}
+              currentAircraftPage={currentAircraftPage}
+              setCurrentAircraftPage={setCurrentAircraftPage}
+              setCurrentOpenAircraftHero={setCurrentOpenAircraftHero}
+              search={search}
+              setSearch={setSearch}
+              country={country}
+              setCountry={setCountry}
+              role={role}
+              setRole={setRole}
+              status={status}
+              setStatus={setStatus}
+              stealth={stealth}
+              setStealth={setStealth}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+            />
+          </div>
+        </main>
+      )}
+
+      {currentPage === "about" && (
+        <main className={blurClass} id="main-container">
+          <div id="main-about" className="main-content">
+            <AboutPage showStats={showStats} setShowStats={setShowStats} />
+          </div>
+        </main>
+      )}
+
+      {currentPage === "add-aircraft" && (
+        <main className={blurClass} id="main-container">
+          <div id="main-add-aircraft" className="main-content">
+            <AddAircraftPage
+              draft={draft}
+              setDraft={setDraft}
+              editingId={editingId}
+              closeForm={closeForm}
+              aircraft={aircraft}
+              addAircraft={addAircraft}
+              editAircraft={editAircraft}
+              validationErrors={validationErrors}
+              setValidationErrors={setValidationErrors}
+              isImageLoading={isImageLoading}
+              setIsImageLoading={setIsImageLoading}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        </main>
+      )}
+
+      {currentPage === "profile" && (
+        <main className={blurClass} id="main-container-no-top-padding">
+          <div id="main-profile" className="main-content">
+            <ProfilePage
+              newAircraftList={newAircraftList}
+              aircraft={aircraft}
+              likedList={likedList}
+              setLikedList={setLikedList}
+              deleteAircraft={deleteAircraft}
+              openEditForm={openEditForm}
+              currentProfilePage={currentProfilePage}
+              setCurrentProfilePage={setCurrentProfilePage}
+              activeDeleteAircraftId={activeDeleteAircraftId}
+              setActiveDeleteAircraftId={setActiveDeleteAircraftId}
+            />
+          </div>
+        </main>
+      )}
     </>
   );
 }

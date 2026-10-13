@@ -1,128 +1,138 @@
+/* ============================================================
+   ProfilePages.css — aircraft tiles inside the profile page.
+   ============================================================ */
+
 #profile-aircraft-panel {
   width: 100%;
-
   display: flex;
   flex-direction: column;
-
-  gap: 12px;
-
-  padding: 18px 12px;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-3);
 }
 
 #profile-aircraft-title {
   width: 100%;
-
   margin: 0;
-
-  color: #f5f6fa;
-
-  font-size: 1.35rem;
-  font-weight: bold;
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
   line-height: 1;
 }
 
 #profile-aircraft-grid {
   width: 100%;
-
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  gap: 10px;
+  gap: var(--space-3);
 }
 
+/* ---------- TILE ---------- */
 .profile-aircraft-tile {
   position: relative;
-
+  display: grid;
+  align-items: end;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  min-height: 180px;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 
-  overflow: hidden;
-
-  border: 1px solid #2b3e54;
-  border-radius: 5px;
-
-  background-color: #101e31;
+  background-color: var(--color-surface-overlay);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  border: 1px solid var(--color-border);
+}
+
+.profile-aircraft-tile:hover {
+  border-color: var(--color-border-strong);
+}
+
+/* Keep the image ratio, but let long names/actions grow the shared grid row. */
+.profile-aircraft-tile::before {
+  content: "";
+  grid-area: 1 / 1;
+  aspect-ratio: 16 / 9;
+  pointer-events: none;
 }
 
 .profile-aircraft-heading {
-  position: absolute;
-
-  left: 0;
-  bottom: 0;
-
+  grid-area: 1 / 1;
+  min-width: 0;
   width: 100%;
-
-  padding: 35px 15px 12px;
+  padding: var(--space-8) var(--space-4) var(--space-3);
 
   background: linear-gradient(
     to top,
-    #051124f2 0%,
-    #051124b5 50%,
-    transparent 100%
+    rgba(var(--color-bg-rgb), 0.95) 0%,
+    rgba(var(--color-bg-rgb), 0.7) 50%,
+    rgba(var(--color-bg-rgb), 0) 100%
   );
 }
 
 .profile-aircraft-name {
   margin: 0;
-
-  color: #f5f6fa;
-
-  font-size: 1.25rem;
-  font-weight: bold;
+  color: var(--color-text);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
   line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .profile-aircraft-alias {
-  margin: 4px 0 0;
-
-  color: #a4b4c7;
-
-  font-size: 0.9rem;
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
+/* ---------- ACTION BUTTONS ---------- */
 .profile-aircraft-actions {
   display: flex;
   flex-wrap: wrap;
-
-  margin-top: 10px;
-
-  gap: 6px;
+  margin-top: var(--space-3);
+  gap: var(--space-2);
 }
 
 .profile-aircraft-action-button {
-  padding: 5px 9px;
+  padding: 5px var(--space-3);
 
-  border: 1px solid #5d7288;
-  border-radius: 4px;
-
-  background-color: #101e31cc;
-  color: #f5f6fa;
-
+  background-color: rgba(var(--color-surface-rgb), 0.85);
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
   cursor: pointer;
-  font: inherit;
-  font-size: 0.8rem;
 }
 
 .profile-aircraft-action-button:hover,
 .profile-aircraft-action-button[aria-pressed="true"] {
-  border-color: #f5b32c;
-  color: #f5b32c;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: rgba(var(--color-surface-rgb), 0.95);
 }
 
 .profile-aircraft-delete-button:hover {
-  border-color: #ff9999;
-  color: #ff9999;
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+  background-color: var(--color-danger-soft);
 }
 
+/* ---------- EMPTY MESSAGE ---------- */
 .profile-aircraft-empty-message {
   width: 100%;
+  margin: var(--space-5) 0;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-base);
+  text-align: center;
+}
 
-  margin: 20px 0;
-
-  color: #a4b4c7;
-
-  font-size: 1rem;
+@media (max-width: 700px) {
+  #profile-aircraft-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

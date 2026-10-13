@@ -1,155 +1,171 @@
+/* ============================================================
+   Profile.css — profile header card and tab navigation.
+   ============================================================ */
+
 #profile-page {
   width: 100%;
-  height: 100%;
-  min-height: 0;
-
   display: flex;
   flex-direction: column;
 }
 
 #user-profile-header {
   width: 100%;
-
-  padding: 0 20px 10px;
+  padding: 0 var(--space-5) var(--space-3);
 }
 
 #user-profile-header-top {
   width: 100%;
-
   display: flex;
   align-items: center;
-
-  gap: 2rem;
-
-  padding: 30px;
-
-  border-radius: 0 0 75px 75px;
-
-  background-color: #243142;
+  gap: var(--space-8);
+  padding: var(--space-8);
+  background-color: var(--color-surface-raised);
 }
 
 #profile-pic-container {
   flex: 1;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   min-width: 0;
 }
 
 #profile-pic-at-profile {
   display: block;
-
-  width: min(20vw, 220px);
+  width: min(20vw, 200px);
   aspect-ratio: 1;
-
   margin-inline: auto;
-
-  border-radius: 50%;
-
   object-fit: cover;
+  border: 1px solid var(--color-border-strong);
 }
 
 #profile-actions-container {
   flex: 2;
-
   min-width: 0;
 }
 
 #profile-user-name {
-  color: #f5f6fa;
-
-  font-size: 2rem;
-  font-weight: bold;
+  overflow-wrap: anywhere;
+  color: var(--color-text);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
   line-height: 1.1;
 }
 
 #profile-user-friends {
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
   align-items: center;
-
-  margin-top: 0.4rem;
-
-  color: #f5f6fa;
-
-  font-size: 1.2rem;
+  margin-top: var(--space-2);
+  color: var(--color-text-secondary);
+  font-size: var(--text-md);
 }
 
 #friend-pic-at-profile {
-  width: 40px;
-  height: 40px;
-
-  margin-right: 0.5rem;
-
-  border-radius: 50%;
-
+  width: 36px;
+  height: 36px;
+  margin-right: var(--space-2);
   object-fit: cover;
+  border: 1px solid var(--color-border);
 }
 
+/* ---------- MAIN PANEL ---------- */
 #user-profile-main {
   flex: 1;
-
   width: 100%;
-
-  padding: 10px 20px 0;
+  padding: var(--space-3) var(--space-5) 0;
 }
 
 #user-profile-main-page-container {
   flex: 1;
-
   min-height: 0;
 }
 
 #user-profile-main-correcter {
-  height: 100%;
-
   display: flex;
   flex-direction: column;
-
-  padding-inline: 30px;
-
-  border-radius: 75px 75px 0 0;
-
-  background-color: #ffffff15;
+  padding-inline: var(--space-6);
+  background-color: var(--color-surface-raised);
 }
 
+/* ---------- TAB BAR ---------- */
 #user-profile-main-header {
   display: flex;
-
-  gap: 1rem;
-
+  gap: var(--space-3);
   width: 100%;
-  height: 5vh;
-
-  padding: 10px 20px 0;
-
-  border-bottom: 1px solid #f5f6fa15;
+  padding: var(--space-3) 0 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .user-profile-main-header-button {
   flex: 1;
-
-  height: 100%;
-
+  min-height: 44px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
-
-  background: transparent;
-  color: #f5f6fa;
-
-  font-size: 1.2rem;
-  font-weight: bold;
-
+  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
   cursor: pointer;
 }
 
 .user-profile-main-header-button:hover {
-  color: #ffd166;
+  color: var(--color-text);
 }
 
 .user-profile-main-header-button-active {
-  color: #ffd166;
+  color: var(--color-text);
+  border-bottom-color: var(--color-accent);
+}
 
-  border-bottom-color: #ffd166;
+@media (max-width: 700px) {
+  #user-profile-header-top {
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-6) var(--space-4);
+  }
+
+  #profile-pic-at-profile {
+    width: 120px;
+  }
+
+  #profile-user-name {
+    font-size: var(--text-xl);
+    text-align: center;
+  }
+  #profile-user-friends {
+    justify-content: center;
+  }
+
+  .user-profile-main-header-button {
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-width: 600px) {
+  #user-profile-header,
+  #user-profile-main {
+    padding-inline: var(--space-3);
+  }
+
+  #user-profile-header-top {
+    padding: var(--space-5) var(--space-3);
+  }
+
+  #user-profile-main-correcter {
+    padding-inline: var(--space-3);
+  }
+
+  #user-profile-main-header {
+    gap: var(--space-1);
+  }
+
+  .user-profile-main-header-button {
+    padding-inline: var(--space-1);
+    font-size: var(--text-xs);
+  }
 }

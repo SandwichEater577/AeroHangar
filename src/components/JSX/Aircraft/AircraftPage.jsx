@@ -30,6 +30,7 @@ export default function AircraftPage({
   sortBy,
   setSortBy,
 }) {
+  // one call does search + filter + sort + paginate + build filter options
   const {
     countries,
     roles,
@@ -44,6 +45,10 @@ export default function AircraftPage({
     { search, country, role, status, stealth, sortBy },
     currentAircraftPage,
   );
+
+  // every filter change also resets to page 1. that's inside changeAircraftFilter
+  const onFilterChange = (setter) => (event) =>
+    changeAircraftFilter(event.target.value, setter, setCurrentAircraftPage);
 
   const filterSetters = {
     setSearch,
@@ -64,24 +69,12 @@ export default function AircraftPage({
           placeholder="Search aircraft..."
           aria-label="Search aircraft"
           value={search}
-          onChange={(event) =>
-            changeAircraftFilter(
-              event.target.value,
-              setSearch,
-              setCurrentAircraftPage,
-            )
-          }
+          onChange={onFilterChange(setSearch)}
         />
         <select
           aria-label="Sort aircraft"
           value={sortBy}
-          onChange={(event) =>
-            changeAircraftFilter(
-              event.target.value,
-              setSortBy,
-              setCurrentAircraftPage,
-            )
-          }
+          onChange={onFilterChange(setSortBy)}
         >
           <option value="name-asc">Name A-Z</option>
           <option value="name-desc">Name Z-A</option>
@@ -95,13 +88,7 @@ export default function AircraftPage({
         <select
           aria-label="Country"
           value={country}
-          onChange={(event) =>
-            changeAircraftFilter(
-              event.target.value,
-              setCountry,
-              setCurrentAircraftPage,
-            )
-          }
+          onChange={onFilterChange(setCountry)}
         >
           <option value="all">All countries</option>
           {countries.map((item) => (
@@ -110,16 +97,11 @@ export default function AircraftPage({
             </option>
           ))}
         </select>
+
         <select
           aria-label="Role"
           value={role}
-          onChange={(event) =>
-            changeAircraftFilter(
-              event.target.value,
-              setRole,
-              setCurrentAircraftPage,
-            )
-          }
+          onChange={onFilterChange(setRole)}
         >
           <option value="all">All roles</option>
           {roles.map((item) => (
@@ -128,16 +110,11 @@ export default function AircraftPage({
             </option>
           ))}
         </select>
+
         <select
           aria-label="Status"
           value={status}
-          onChange={(event) =>
-            changeAircraftFilter(
-              event.target.value,
-              setStatus,
-              setCurrentAircraftPage,
-            )
-          }
+          onChange={onFilterChange(setStatus)}
         >
           <option value="all">All statuses</option>
           {statuses.map((item) => (
@@ -146,21 +123,17 @@ export default function AircraftPage({
             </option>
           ))}
         </select>
+
         <select
           aria-label="Stealth"
           value={stealth}
-          onChange={(event) =>
-            changeAircraftFilter(
-              event.target.value,
-              setStealth,
-              setCurrentAircraftPage,
-            )
-          }
+          onChange={onFilterChange(setStealth)}
         >
           <option value="all">All aircraft</option>
           <option value="true">Stealth</option>
           <option value="false">Non-stealth</option>
         </select>
+
         <button
           type="button"
           onClick={() =>
@@ -171,7 +144,20 @@ export default function AircraftPage({
         </button>
       </div>
 
-      <p className="aircraft-count">{resultCount} aircraft</p>
+      <p className="aircraft-count">
+        {resultCount} {resultCount === 1 ? "aircraft" : "aircraft"}
+      </p>
+
+      <div className="aircraft-pagination-top">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          pages={visiblePages}
+          onPageChange={(page) =>
+            changeAircraftPage(page, setCurrentAircraftPage)
+          }
+        />
+      </div>
 
       {visibleAircraft.length > 0 ? (
         <div id="aircraft-cards-container" className="aircraft-catalog-grid">
@@ -188,7 +174,7 @@ export default function AircraftPage({
           ))}
         </div>
       ) : (
-        <p className="aircraft-no-results">No aircraft found.</p>
+        <p className="aircraft-no-results">No aircraft match your filters.</p>
       )}
 
       <Pagination

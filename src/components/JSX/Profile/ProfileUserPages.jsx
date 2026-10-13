@@ -11,44 +11,44 @@ export default function ProfileUserPages({
   setLikedList,
   editAircraft,
   deleteAircraft,
+  openEditForm,
   activeDeleteAircraftId,
   setActiveDeleteAircraftId,
 }) {
   return (
-    <>
-      <div id="user-profile-main-correcter">
-        <div id="user-profile-main-header">
-          {profile_main_header.map((item) => (
-            <button
-              className={
-                "user-profile-main-header-button" +
-                (currentProfilePage === item.id.toString()
-                  ? " user-profile-main-header-button-active"
-                  : "")
-              }
-              key={item.name}
-              id={`user-profile-main-header-${item.name}`}
-              onClick={() => changeProfilePage(item.id, setCurrentProfilePage)}
-            >
-              {item.text}
-            </button>
-          ))}
-        </div>
-
-        <div id="user-profile-main-page-container">
-          <ProfileMainAllPages
-            newAircraftList={newAircraftList}
-            aircraft={aircraft}
-            currentProfilePage={currentProfilePage}
-            likedList={likedList}
-            setLikedList={setLikedList}
-            editAircraft={editAircraft}
-            deleteAircraft={deleteAircraft}
-            activeDeleteAircraftId={activeDeleteAircraftId}
-            setActiveDeleteAircraftId={setActiveDeleteAircraftId}
-          />
-        </div>
+    <div id="user-profile-main-correcter">
+      <div id="user-profile-main-header">
+        {profile_main_header.map((item) => (
+          <button
+            key={item.name}
+            className={
+              "user-profile-main-header-button" +
+              (currentProfilePage === item.id.toString()
+                ? " user-profile-main-header-button-active"
+                : "")
+            }
+            id={`user-profile-main-header-${item.name}`}
+            onClick={() => changeProfilePage(item.id, setCurrentProfilePage)}
+          >
+            {item.text}
+          </button>
+        ))}
       </div>
-    </>
+
+      <div id="user-profile-main-page-container">
+        <ProfileMainAllPages
+          newAircraftList={newAircraftList}
+          aircraft={aircraft}
+          currentProfilePage={currentProfilePage}
+          likedList={likedList}
+          setLikedList={setLikedList}
+          editAircraft={editAircraft}
+          deleteAircraft={deleteAircraft}
+          openEditForm={openEditForm}
+          activeDeleteAircraftId={activeDeleteAircraftId}
+          setActiveDeleteAircraftId={setActiveDeleteAircraftId}
+        />
+      </div>
+    </div>
   );
 }

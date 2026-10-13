@@ -22,13 +22,13 @@ export default function AboutPage({ showStats, setShowStats }) {
         title="Code stats"
         onClose={() => closeDialog(setShowStats)}
       >
-        <p>JavaScript + JSX: 3130 lines</p>
-        <p>CSS: 1678 lines</p>
+        <p>JavaScript + JSX: 2924 lines</p>
+        <p>CSS: 1793 lines</p>
         <p>HTML: 16 lines</p>
         <p>JSON (package.json): 27 lines</p>
-        <p>Total: 4851 lines</p>
+        <p>Total: 4760 lines</p>
         <small>
-          Includes blank lines. Excludes package-lock.json and assets.
+          Includes blank lines and eslint.config.js. Excludes package-lock.json and assets.
         </small>
       </Dialog>
     </section>

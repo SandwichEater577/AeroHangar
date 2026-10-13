@@ -1,3 +1,4 @@
+// shows Prev / page numbers / Next. hidden when there's only one page
 export default function Pagination({
   currentPage,
   totalPages,
@@ -18,6 +19,7 @@ export default function Pagination({
 
       {pages.map((page, index) =>
         page === "..." ? (
+          // dots aren't clickable
           <span key={`dots-${index}`}>...</span>
         ) : (
           <button

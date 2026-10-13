@@ -10,6 +10,7 @@ export default function ProfilePage({
   setLikedList,
   editAircraft,
   deleteAircraft,
+  openEditForm,
   activeDeleteAircraftId,
   setActiveDeleteAircraftId,
 }) {
@@ -29,6 +30,7 @@ export default function ProfilePage({
           setLikedList={setLikedList}
           editAircraft={editAircraft}
           deleteAircraft={deleteAircraft}
+          openEditForm={openEditForm}
           activeDeleteAircraftId={activeDeleteAircraftId}
           setActiveDeleteAircraftId={setActiveDeleteAircraftId}
         />

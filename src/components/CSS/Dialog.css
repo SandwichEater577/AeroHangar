@@ -1,3 +1,7 @@
+/* ============================================================
+   Dialog.css — modal for delete confirmation and code stats.
+   ============================================================ */
+
 .dialog-background {
   position: fixed;
   inset: 0;
@@ -5,47 +9,72 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  background: #051124bb;
+  padding: var(--space-5);
+
+  background: rgba(var(--color-bg-rgb), 0.62);
 }
 
 .dialog-box {
-  width: min(100%, 420px);
-  padding: 20px;
-  border: 2px solid #2b3e54;
-  background: #101e31;
-  color: #f5f6fa;
+  max-height: calc(100vh - 2 * var(--space-5));
+  max-height: calc(100dvh - 2 * var(--space-5));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  overflow-wrap: anywhere;
+  width: 100%;
+  max-width: 380px;
+  padding: var(--space-6);
+
+  background-color: var(--color-surface-overlay);
+  border: 1px solid var(--color-border-strong);
 }
 
 .dialog-box h2 {
-  margin: 0 0 12px;
-  font-size: 1.25rem;
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
 }
 
 .dialog-content {
-  color: #a4b4c7;
+  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.dialog-content p {
+  margin: 0 0 var(--space-2);
 }
 
 .dialog-buttons {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 8px;
-  margin-top: 20px;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
 }
 
 .dialog-buttons button {
   padding: 8px 16px;
-  border: 1px solid #5d7288;
-  background: #1a304e;
-  color: #f5f6fa;
-  font: inherit;
-  cursor: pointer;
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  background-color: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
 }
 
 .dialog-buttons button:hover {
-  border-color: #f5b32c;
+  background-color: var(--color-surface-raised);
+  border-color: var(--color-text-tertiary);
 }
 
-.dialog-buttons button:focus-visible {
-  outline: 2px solid #f5b32c;
+/* Primary action = last button in the dialog. */
+.dialog-buttons button:last-child {
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border-color: var(--color-accent);
+}
+
+.dialog-buttons button:last-child:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
 }

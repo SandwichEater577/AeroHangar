@@ -1,9 +1,9 @@
 import { useRef } from "react";
-import { createAddAircraftHandlers } from "../../../handlers/aircraftHandlers.js";
+import { validateAircraftForm } from "../../../handlers/aircraftHandlers.js";
 
+// shows the error text under a field if there is one
 function FieldError({ message }) {
   if (!message) return null;
-
   return (
     <span className="aircraft-validation-error" role="alert">
       {message}
@@ -11,164 +11,218 @@ function FieldError({ message }) {
   );
 }
 
+// this one component handles both adding and editing.
+// editingId === null  -> add mode
+// editingId === number -> edit mode (fills the form, saves over that aircraft)
 export default function AddAircraftPage({
-  addAircraftNameInput,
-  setAddAircraftNameInput,
-  addAircraftNicknameInput,
-  setAddAircraftNicknameInput,
-  addAircraftManufacturerInput,
-  setAddAircraftManufacturerInput,
-  addAircraftCountryInput,
-  setAddAircraftCountryInput,
-  addAircraftRoleInput,
-  setAddAircraftRoleInput,
-  addAircraftTypeInput,
-  setAddAircraftTypeInput,
-  addAircraftFirstFlightInput,
-  setAddAircraftFirstFlightInput,
-  addAircraftStatusInput,
-  setAddAircraftStatusInput,
-  addAircraftEngineTypeInput,
-  setAddAircraftEngineTypeInput,
-  addAircraftEngineCountInput,
-  setAddAircraftEngineCountInput,
-  addAircraftVMAXinput,
-  setAddAircraftVMAXInput,
-  addAircraftStealthInput,
-  setAddAircraftStealthInput,
-  addAircraftImageInput,
-  setAddAircraftImageInput,
+  draft,
+  setDraft,
+  editingId,
+  closeForm,
+  aircraft,
+  addAircraft,
+  editAircraft,
   validationErrors,
   setValidationErrors,
   isImageLoading,
   setIsImageLoading,
-  aircraft,
-  addAircraft,
+  setCurrentPage,
 }) {
   const imageFileInputRef = useRef(null);
   const imageReaderRef = useRef(null);
 
-  const {
-    handleImageChange,
-    handleRemoveImage,
-    handleFieldChange,
-    handleMaxSpeedChange,
-    handleStealthChange,
-    handleAddAircraft,
-  } = createAddAircraftHandlers({
-    fields: {
-      name: addAircraftNameInput,
-      nickname: addAircraftNicknameInput,
-      manufacturer: addAircraftManufacturerInput,
-      country: addAircraftCountryInput,
-      role: addAircraftRoleInput,
-      aircraftType: addAircraftTypeInput,
-      firstFlight: addAircraftFirstFlightInput,
-      status: addAircraftStatusInput,
-      engineType: addAircraftEngineTypeInput,
-      engines: addAircraftEngineCountInput,
-      maxSpeed: addAircraftVMAXinput,
-      stealth: addAircraftStealthInput,
-      setMaxSpeed: setAddAircraftVMAXInput,
-      setStealth: setAddAircraftStealthInput,
-    },
-    aircraft,
-    addAircraft,
-    imageHandlerOptions: {
-      imageReaderRef,
-      imageFileInputRef,
-      setIsImageLoading,
-      setAddAircraftImageInput,
-      setValidationErrors,
-    },
-    imageInput: addAircraftImageInput,
-    isImageLoading,
-    setValidationErrors,
-    inputSetters: {
-      name: setAddAircraftNameInput,
-      nickname: setAddAircraftNicknameInput,
-      manufacturer: setAddAircraftManufacturerInput,
-      country: setAddAircraftCountryInput,
-      role: setAddAircraftRoleInput,
-      aircraftType: setAddAircraftTypeInput,
-      firstFlight: setAddAircraftFirstFlightInput,
-      status: setAddAircraftStatusInput,
-      engineType: setAddAircraftEngineTypeInput,
-      engines: setAddAircraftEngineCountInput,
-      maxSpeed: setAddAircraftVMAXInput,
-      stealth: setAddAircraftStealthInput,
-    },
-  });
+  const isEditMode = editingId !== null;
+
+  // one handler for every input. `name` on the input tells us which key to update,
+  // so we don't need 14 separate onChange functions
+  function handleFieldChange(event) {
+    const { name, value, type, checked } = event.target;
+    setDraft((current) => ({
+      ...current,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    // clear this field's error as soon as they start typing
+    setValidationErrors((current) => ({ ...current, [name]: "" }));
+  }
+
+  function handleImageChange(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // cancel whatever was still loading
+    if (imageReaderRef.current?.readyState === 1) {
+      imageReaderRef.current.abort();
+    }
+
+    setDraft((current) => ({ ...current, png: "" }));
+    setValidationErrors((current) => ({ ...current, png: "" }));
+    setIsImageLoading(false);
+
+    const allowed = ["image/png", "image/jpeg", "image/webp", "image/gif"];
+    if (!allowed.includes(file.type)) {
+      setValidationErrors((current) => ({
+        ...current,
+        png: "Choose a PNG, JPG, WebP or GIF image.",
+      }));
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setValidationErrors((current) => ({
+        ...current,
+        png: "The image must be 5 MB or smaller.",
+      }));
+      event.target.value = "";
+      return;
+    }
+
+    setIsImageLoading(true);
+    const reader = new FileReader();
+    imageReaderRef.current = reader;
+
+    reader.onload = () => {
+      // if the user picked another file while this one was loading, ignore this result
+      if (imageReaderRef.current !== reader) return;
+      setIsImageLoading(false);
+      if (typeof reader.result === "string") {
+        setDraft((current) => ({ ...current, png: reader.result }));
+      } else {
+        setValidationErrors((current) => ({
+          ...current,
+          png: "Could not read this image. Try another file.",
+        }));
+      }
+    };
+
+    reader.onerror = () => {
+      if (imageReaderRef.current !== reader) return;
+      setIsImageLoading(false);
+      setValidationErrors((current) => ({
+        ...current,
+        png: "Could not read this image. Try another file.",
+      }));
+      if (imageFileInputRef.current) imageFileInputRef.current.value = "";
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  function handleRemoveImage() {
+    if (imageReaderRef.current?.readyState === 1) {
+      imageReaderRef.current.abort();
+    }
+    imageReaderRef.current = null;
+    setIsImageLoading(false);
+    setDraft((current) => ({ ...current, png: "" }));
+    setValidationErrors((current) => ({ ...current, png: "" }));
+    if (imageFileInputRef.current) imageFileInputRef.current.value = "";
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    // stop here if anything is wrong. errors get shown under the fields
+    const errors = validateAircraftForm(draft, isImageLoading);
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      return;
+    }
+
+    if (isEditMode) {
+      // keep the same id, replace the rest
+      editAircraft({ ...draft, id: editingId });
+    } else {
+      // new aircraft. next free id = highest existing + 1
+      const nextId = aircraft.reduce((max, a) => Math.max(max, a.id), 0) + 1;
+      addAircraft({
+        ...draft,
+        id: nextId,
+        engines: Number(draft.engines),
+        maxSpeed: Number(draft.maxSpeed),
+        birthDate: Number(draft.birthDate),
+        likes: [],
+      });
+    }
+
+    closeForm();
+    setCurrentPage("aircraft");
+  }
+
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <div id="add-aircraft-h1">
-        <div id="add-aircraft-title">Add Aircraft</div>
+        <div id="add-aircraft-title">
+          {isEditMode ? "Edit Aircraft" : "Add Aircraft"}
+        </div>
         <div id="add-aircraft-description">
-          Fill in the details to add a new aircraft to the hangar.
+          {isEditMode
+            ? "Change what you want, then save."
+            : "Fill in the details to add a new aircraft to the hangar."}
         </div>
       </div>
+
       <div id="add-aircraft-form-details-container">
+        {/* -------------------- LEFT COLUMN -------------------- */}
         <div id="aircraft-details-left-container">
-          <div id="aircraft-name-field" className="aircraft-detail-field">
-            <label className="aircraft-detail-label" htmlFor="aircraft-name">
+          <div className="aircraft-detail-field">
+            <label className="aircraft-detail-label" htmlFor="name">
               Name
             </label>
             <input
-              id="aircraft-name"
+              id="name"
+              name="name"
               className="aircraft-detail-input"
               type="text"
               placeholder="F-16"
-              value={addAircraftNameInput}
-              onChange={handleFieldChange(setAddAircraftNameInput)}
+              value={draft.name}
+              onChange={handleFieldChange}
             />
-            <FieldError message={validationErrors["aircraft-name"]} />
+            <FieldError message={validationErrors.name} />
           </div>
-          <div id="aircraft-nickname-field" className="aircraft-detail-field">
-            <label
-              className="aircraft-detail-label"
-              htmlFor="aircraft-nickname"
-            >
+
+          <div className="aircraft-detail-field">
+            <label className="aircraft-detail-label" htmlFor="nickname">
               Nickname
             </label>
             <input
-              id="aircraft-nickname"
+              id="nickname"
+              name="nickname"
               className="aircraft-detail-input"
-              placeholder="Fighting Falcon"
               type="text"
-              value={addAircraftNicknameInput}
-              onChange={handleFieldChange(setAddAircraftNicknameInput)}
+              placeholder="Fighting Falcon"
+              value={draft.nickname}
+              onChange={handleFieldChange}
             />
-            <FieldError message={validationErrors["aircraft-nickname"]} />
+            <FieldError message={validationErrors.nickname} />
           </div>
-          <div
-            id="aircraft-manufacturer-field"
-            className="aircraft-detail-field"
-          >
-            <label
-              className="aircraft-detail-label"
-              htmlFor="aircraft-manufacturer"
-            >
+
+          <div className="aircraft-detail-field">
+            <label className="aircraft-detail-label" htmlFor="manufacturer">
               Manufacturer
             </label>
             <input
-              id="aircraft-manufacturer"
+              id="manufacturer"
+              name="manufacturer"
               className="aircraft-detail-input"
-              placeholder="Lockheed Martin"
               type="text"
-              value={addAircraftManufacturerInput}
-              onChange={handleFieldChange(setAddAircraftManufacturerInput)}
+              placeholder="Lockheed Martin"
+              value={draft.manufacturer}
+              onChange={handleFieldChange}
             />
-            <FieldError message={validationErrors["aircraft-manufacturer"]} />
+            <FieldError message={validationErrors.manufacturer} />
           </div>
-          <div id="aircraft-country-field" className="aircraft-detail-field">
-            <label className="aircraft-detail-label" htmlFor="aircraft-country">
+
+          <div className="aircraft-detail-field">
+            <label className="aircraft-detail-label" htmlFor="country">
               Country
             </label>
             <select
-              id="aircraft-country"
+              id="country"
+              name="country"
               className="aircraft-detail-input"
-              value={addAircraftCountryInput}
-              onChange={handleFieldChange(setAddAircraftCountryInput)}
+              value={draft.country}
+              onChange={handleFieldChange}
             >
               <option value="" disabled>
                 Select country...
@@ -209,17 +263,19 @@ export default function AddAircraftPage({
               <option value="International">International</option>
               <option value="Other">Other</option>
             </select>
-            <FieldError message={validationErrors["aircraft-country"]} />
+            <FieldError message={validationErrors.country} />
           </div>
-          <div id="aircraft-role-field" className="aircraft-detail-field">
-            <label className="aircraft-detail-label" htmlFor="aircraft-role">
+
+          <div className="aircraft-detail-field">
+            <label className="aircraft-detail-label" htmlFor="role">
               Role
             </label>
             <select
-              id="aircraft-role"
+              id="role"
+              name="role"
               className="aircraft-detail-input"
-              value={addAircraftRoleInput}
-              onChange={handleFieldChange(setAddAircraftRoleInput)}
+              value={draft.role}
+              onChange={handleFieldChange}
             >
               <option value="" disabled>
                 Select role...
@@ -268,17 +324,19 @@ export default function AddAircraftPage({
                 <option value="Other">Other</option>
               </optgroup>
             </select>
-            <FieldError message={validationErrors["aircraft-role"]} />
+            <FieldError message={validationErrors.role} />
           </div>
-          <div id="aircraft-type-field" className="aircraft-detail-field">
-            <label className="aircraft-detail-label" htmlFor="aircraft-type">
+
+          <div className="aircraft-detail-field">
+            <label className="aircraft-detail-label" htmlFor="aircraftType">
               Aircraft Type
             </label>
             <select
-              id="aircraft-type"
+              id="aircraftType"
+              name="aircraftType"
               className="aircraft-detail-input"
-              value={addAircraftTypeInput}
-              onChange={handleFieldChange(setAddAircraftTypeInput)}
+              value={draft.aircraftType}
+              onChange={handleFieldChange}
             >
               <option value="" disabled>
                 Select aircraft type...
@@ -292,118 +350,67 @@ export default function AddAircraftPage({
               <option value="Unmanned Aircraft">Unmanned Aircraft</option>
               <option value="Other">Other</option>
             </select>
-            <FieldError message={validationErrors["aircraft-type"]} />
+            <FieldError message={validationErrors.aircraftType} />
           </div>
-          <div
-            id="aircraft-first-flight-field"
-            className="aircraft-detail-field"
-          >
-            <label
-              className="aircraft-detail-label"
-              htmlFor="aircraft-first-flight"
-            >
+
+          <div className="aircraft-detail-field">
+            <label className="aircraft-detail-label" htmlFor="birthDate">
               First Flight (Year)
             </label>
             <input
-              id="aircraft-first-flight"
+              id="birthDate"
+              name="birthDate"
               className="aircraft-detail-input"
               type="number"
               min="1903"
               max={new Date().getFullYear()}
-              value={addAircraftFirstFlightInput}
-              onChange={handleFieldChange(setAddAircraftFirstFlightInput)}
+              value={draft.birthDate}
+              onChange={handleFieldChange}
             />
-            <FieldError message={validationErrors["aircraft-first-flight"]} />
+            <FieldError message={validationErrors.birthDate} />
           </div>
         </div>
+
+        {/* -------------------- RIGHT COLUMN -------------------- */}
         <div id="aircraft-details-right-container">
-          <div id="aircraft-status-field" className="aircraft-detail-field">
+          {/* status is a radio group. name is the same on all of them, so only one can be checked */}
+          <div className="aircraft-detail-field" id="aircraft-status-field">
             <label className="aircraft-detail-label">Status</label>
             <div id="aircraft-status" className="aircraft-detail-radio-input">
-              <label className="aircraft-status-radio-input">
-                <input
-                  type="radio"
-                  name="aircraft-status"
-                  value="Active"
-                  className="input-radio-button-aircraft-status"
-                  checked={addAircraftStatusInput === "Active"}
-                  onChange={handleFieldChange(setAddAircraftStatusInput)}
-                />
-                Active
-              </label>
-              <label className="aircraft-status-radio-input">
-                <input
-                  type="radio"
-                  name="aircraft-status"
-                  value="Retired"
-                  className="input-radio-button-aircraft-status"
-                  checked={addAircraftStatusInput === "Retired"}
-                  onChange={handleFieldChange(setAddAircraftStatusInput)}
-                />
-                Retired
-              </label>
-              <label className="aircraft-status-radio-input">
-                <input
-                  type="radio"
-                  name="aircraft-status"
-                  value="Prototype"
-                  className="input-radio-button-aircraft-status"
-                  checked={addAircraftStatusInput === "Prototype"}
-                  onChange={handleFieldChange(setAddAircraftStatusInput)}
-                />
-                Prototype
-              </label>
-              <label className="aircraft-status-radio-input">
-                <input
-                  type="radio"
-                  name="aircraft-status"
-                  value="Experimental"
-                  className="input-radio-button-aircraft-status"
-                  checked={addAircraftStatusInput === "Experimental"}
-                  onChange={handleFieldChange(setAddAircraftStatusInput)}
-                />
-                Experimental
-              </label>
-              <label className="aircraft-status-radio-input">
-                <input
-                  type="radio"
-                  name="aircraft-status"
-                  value="Under Development"
-                  className="input-radio-button-aircraft-status"
-                  checked={addAircraftStatusInput === "Under Development"}
-                  onChange={handleFieldChange(setAddAircraftStatusInput)}
-                />
-                Under Development
-              </label>
-              <label className="aircraft-status-radio-input">
-                <input
-                  type="radio"
-                  name="aircraft-status"
-                  value="Cancelled"
-                  className="input-radio-button-aircraft-status"
-                  checked={addAircraftStatusInput === "Cancelled"}
-                  onChange={handleFieldChange(setAddAircraftStatusInput)}
-                />
-                Cancelled
-              </label>
+              {[
+                "Active",
+                "Retired",
+                "Prototype",
+                "Experimental",
+                "Under Development",
+                "Cancelled",
+              ].map((option) => (
+                <label key={option} className="aircraft-status-radio-input">
+                  <input
+                    type="radio"
+                    name="status"
+                    value={option}
+                    className="input-radio-button-aircraft-status"
+                    checked={draft.status === option}
+                    onChange={handleFieldChange}
+                  />
+                  {option}
+                </label>
+              ))}
             </div>
-            <FieldError message={validationErrors["aircraft-status"]} />
+            <FieldError message={validationErrors.status} />
           </div>
-          <div
-            id="aircraft-engine-type-field"
-            className="aircraft-detail-field"
-          >
-            <label
-              className="aircraft-detail-label"
-              htmlFor="aircraft-engine-type"
-            >
+
+          <div className="aircraft-detail-field">
+            <label className="aircraft-detail-label" htmlFor="engineType">
               Engine Type
             </label>
             <select
-              id="aircraft-engine-type"
+              id="engineType"
+              name="engineType"
               className="aircraft-detail-input"
-              value={addAircraftEngineTypeInput}
-              onChange={handleFieldChange(setAddAircraftEngineTypeInput)}
+              value={draft.engineType}
+              onChange={handleFieldChange}
             >
               <option value="" disabled>
                 Select engine type...
@@ -428,59 +435,64 @@ export default function AddAircraftPage({
                 <option value="Other">Other</option>
               </optgroup>
             </select>
-            <FieldError message={validationErrors["aircraft-engine-type"]} />
+            <FieldError message={validationErrors.engineType} />
           </div>
-          <div id="aircraft-engines-field" className="aircraft-detail-field">
-            <label className="aircraft-detail-label" htmlFor="aircraft-engines">
+
+          <div className="aircraft-detail-field">
+            <label className="aircraft-detail-label" htmlFor="engines">
               Number of Engines
             </label>
             <input
-              id="aircraft-engines"
+              id="engines"
+              name="engines"
               className="aircraft-detail-input"
               type="number"
               min="0"
               max="12"
-              value={addAircraftEngineCountInput}
-              onChange={handleFieldChange(setAddAircraftEngineCountInput)}
+              value={draft.engines}
+              onChange={handleFieldChange}
             />
-            <FieldError message={validationErrors["aircraft-engines"]} />
+            <FieldError message={validationErrors.engines} />
           </div>
-          <div id="aircraft-max-speed-field" className="aircraft-detail-field">
-            <label
-              className="aircraft-detail-label"
-              htmlFor="aircraft-max-speed"
-            >
+
+          <div className="aircraft-detail-field">
+            <label className="aircraft-detail-label" htmlFor="maxSpeed">
               Max Speed (km/h)
             </label>
             <input
-              id="aircraft-max-speed"
+              id="maxSpeed"
+              name="maxSpeed"
               className="aircraft-detail-input"
               type="number"
               min="1"
               max="10000"
-              value={addAircraftVMAXinput}
-              onChange={handleMaxSpeedChange}
+              value={draft.maxSpeed}
+              onChange={handleFieldChange}
             />
-            <FieldError message={validationErrors["aircraft-max-speed"]} />
+            <FieldError message={validationErrors.maxSpeed} />
           </div>
-          <div id="aircraft-stealth-field" className="aircraft-detail-field">
-            <label className="aircraft-detail-label" htmlFor="aircraft-stealth">
+
+          <div className="aircraft-detail-field">
+            <label className="aircraft-detail-label" htmlFor="stealth">
               Stealth
             </label>
             <label id="aircraft-stealth-container">
               <input
-                id="aircraft-stealth"
+                id="stealth"
+                name="stealth"
                 type="checkbox"
-                checked={addAircraftStealthInput}
-                onChange={handleStealthChange}
+                checked={draft.stealth}
+                onChange={handleFieldChange}
               />
               Stealth Aircraft
             </label>
           </div>
         </div>
       </div>
+
+      {/* -------------------- IMAGE -------------------- */}
       <div id="add-aircraft-form-image-container">
-        <div id="aircraft-image-field" className="aircraft-detail-field">
+        <div className="aircraft-detail-field">
           <label className="aircraft-detail-label" htmlFor="aircraft-image">
             Aircraft Image
           </label>
@@ -495,17 +507,17 @@ export default function AddAircraftPage({
             ref={imageFileInputRef}
             onChange={handleImageChange}
           />
-          <FieldError message={validationErrors["aircraft-image"]} />
+          <FieldError message={validationErrors.png} />
           {isImageLoading && (
             <p className="aircraft-image-loading" role="status">
               Loading image...
             </p>
           )}
-          {addAircraftImageInput && !isImageLoading && (
+          {draft.png && !isImageLoading && (
             <div className="aircraft-image-preview-container">
               <img
-                src={addAircraftImageInput}
-                alt="New aircraft preview"
+                src={draft.png}
+                alt="Aircraft preview"
                 className="aircraft-image-preview"
               />
               <button
@@ -519,15 +531,13 @@ export default function AddAircraftPage({
           )}
         </div>
       </div>
+
+      {/* -------------------- SUBMIT -------------------- */}
       <div id="add-aircraft-form-button-container">
-        <button
-          type="button"
-          onClick={handleAddAircraft}
-          disabled={isImageLoading}
-        >
-          Add Aircraft
+        <button type="submit" disabled={isImageLoading}>
+          {isEditMode ? "Save Changes" : "Add Aircraft"}
         </button>
       </div>
-    </>
+    </form>
   );
 }
